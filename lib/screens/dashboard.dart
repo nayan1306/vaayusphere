@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/appbar.dart';
+import 'package:vaayusphere/providers/air_quality_provider.dart';
+import 'package:vaayusphere/widgets/infotile.dart';
 
-class DashboardPlaceholder extends StatelessWidget {
+class DashboardPlaceholder extends StatefulWidget {
   const DashboardPlaceholder({
     super.key,
     required this.controller,
@@ -11,38 +14,47 @@ class DashboardPlaceholder extends StatelessWidget {
   final SidebarXController controller;
 
   @override
+  State<DashboardPlaceholder> createState() => _DashboardPlaceholderState();
+}
+
+class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Fetch air quality data when the widget is initialized
+    Future.delayed(Duration.zero, () {
+      final provider = Provider.of<ApiDataProvider>(context, listen: false);
+      provider.fetchAndSetAirQualityData();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: const CommonAppBar(title: "VAAYU sphere"),
+      appBar: CommonAppBar(
+        title: _getTitleByIndex(widget.controller.selectedIndex),
+      ),
       body: AnimatedBuilder(
-        animation: controller,
+        animation: widget.controller,
         builder: (context, child) {
-          final pageTitle = _getTitleByIndex(controller.selectedIndex);
-          switch (controller.selectedIndex) {
-            case 0:
-              return ListView.builder(
-                padding: const EdgeInsets.only(top: 10),
-                itemBuilder: (context, index) => Container(
-                  height: 100,
-                  width: double.infinity,
-                  margin:
-                      const EdgeInsets.only(bottom: 10, right: 10, left: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).canvasColor,
-                    boxShadow: const [BoxShadow()],
-                  ),
-                ),
-              );
-            default:
-              return Center(
-                child: Text(
-                  pageTitle,
-                  style: theme.textTheme.headlineSmall,
-                ),
-              );
-          }
+          return const Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    AqiPm10(),
+                    SizedBox(width: 20),
+                    InfoTile(),
+                  ],
+                )
+              ],
+            ),
+          );
         },
       ),
     );
@@ -59,13 +71,13 @@ class DashboardPlaceholder extends StatelessWidget {
       case 3:
         return 'Favorites';
       case 4:
-        return 'Custom iconWidget';
+        return 'Custom Icon';
       case 5:
         return 'Profile';
       case 6:
         return 'Settings';
       default:
-        return 'Not found page';
+        return 'Not Found';
     }
   }
 }

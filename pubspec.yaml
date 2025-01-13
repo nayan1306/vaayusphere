@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   sidebarx: ^0.17.1
+  http: ^1.2.2
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +23,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo/logo.png
+    - assets/gifs/air.gif
