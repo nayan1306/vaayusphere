@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/common/appbar.dart';
 
 class DashboardPlaceholder extends StatelessWidget {
   const DashboardPlaceholder({
@@ -13,16 +14,7 @@ class DashboardPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _getTitleByIndex(controller.selectedIndex),
-          style: theme.textTheme.headlineSmall?.copyWith(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: theme.primaryColor,
-      ),
+      appBar: const CommonAppBar(title: "VAAYU sphere"),
       body: AnimatedBuilder(
         animation: controller,
         builder: (context, child) {
