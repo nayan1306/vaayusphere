@@ -47,9 +47,13 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
               children: [
                 Row(
                   children: [
-                    AqiPm10(),
+                    AqiPm10InfoTile(),
                     SizedBox(width: 20),
-                    InfoTile(),
+                    AqiPm2InfoTile(),
+                    SizedBox(width: 20),
+                    SulphurDioxideInfoTile(),
+                    SizedBox(width: 20),
+                    NitrogenDioxideInfoTile()
                   ],
                 )
               ],
