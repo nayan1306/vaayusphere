@@ -13,6 +13,9 @@ dependencies:
   sidebarx: ^0.17.1
   http: ^1.2.2
   provider: ^6.1.2
+  syncfusion_flutter_gauges: ^28.1.38
+  geekyants_flutter_gauges: ^1.0.4
+  
 
 dev_dependencies:
   flutter_test:

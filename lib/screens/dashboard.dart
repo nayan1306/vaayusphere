@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/appbar.dart';
 import 'package:vaayusphere/providers/air_quality_provider.dart';
+import 'package:vaayusphere/widgets/aqigaugecard.dart';
 import 'package:vaayusphere/widgets/infotile.dart';
 
 class DashboardPlaceholder extends StatefulWidget {
@@ -41,7 +42,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
         animation: widget.controller,
         builder: (context, child) {
           return const Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(25.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,7 +54,9 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                     SizedBox(width: 20),
                     SulphurDioxideInfoTile(),
                     SizedBox(width: 20),
-                    NitrogenDioxideInfoTile()
+                    NitrogenDioxideInfoTile(),
+                    SizedBox(width: 30),
+                    AqiGaugeCard()
                   ],
                 )
               ],
