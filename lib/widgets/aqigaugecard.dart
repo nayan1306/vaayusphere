@@ -29,6 +29,23 @@ class AqiGaugeCard extends StatelessWidget {
       }
     }
 
+    // Function to determine AQI status emoji
+    String getAqiEmoji(double aqiValue) {
+      if (aqiValue <= 50) {
+        return "🌱"; // Good
+      } else if (aqiValue <= 100) {
+        return "🍃"; // Moderate
+      } else if (aqiValue <= 150) {
+        return "😷"; // Unhealthy for Sensitive Groups
+      } else if (aqiValue <= 200) {
+        return "😷😷"; // Unhealthy
+      } else if (aqiValue <= 300) {
+        return "💀"; // Very Unhealthy
+      } else {
+        return "☠️"; // Hazardous
+      }
+    }
+
     // Function to get AQI status color
     Color getAqiColor(double aqiValue) {
       if (aqiValue <= 50) {
@@ -60,6 +77,22 @@ class AqiGaugeCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            getAqiEmoji(double.parse(
+                              airQualityData['hourly']['european_aqi_pm10'][0]
+                                  .toString(),
+                            )),
+                            style: const TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
                           Text(
                             airQualityData['hourly']['european_aqi_pm10'][0]
                                 .toString(),
@@ -73,29 +106,43 @@ class AqiGaugeCard extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            getAqiStatus(double.parse(
-                              airQualityData['hourly']['european_aqi_pm10'][0]
-                                  .toString(),
-                            )),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: getAqiColor(double.parse(
-                                airQualityData['hourly']['european_aqi_pm10'][0]
-                                    .toString(),
-                              )),
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                getAqiStatus(double.parse(
+                                  airQualityData['hourly']['european_aqi_pm10']
+                                          [0]
+                                      .toString(),
+                                )),
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                  color: getAqiColor(double.parse(
+                                    airQualityData['hourly']
+                                            ['european_aqi_pm10'][0]
+                                        .toString(),
+                                  )),
+                                ),
+                              ),
+                              const Text(
+                                "PM 10 (µg/m³)",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(width: 10),
                           // Label for AQI
-                          const Text(
-                            "AQI (PM10)",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white70,
-                            ),
-                          ),
+                          // const Text(
+                          //   "AQI (PM10)",
+                          //   style: TextStyle(
+                          //     fontSize: 16,
+                          //     color: Colors.white70,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],
