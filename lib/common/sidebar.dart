@@ -70,31 +70,33 @@ class ExampleSidebarX extends StatelessWidget {
         return Row(
           children: [
             SizedBox(
-              height: 100,
+              height: extended ? 100 : 70,
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Image.asset('assets/logo/logo.png'),
               ),
             ),
-            const Column(
-              children: [
-                Text(
-                  "YΛΛYU",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 10,
-                      fontSize: 20),
-                ),
-                Text(
-                  "sphere",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 10),
-                ),
-              ],
-            )
+            if (extended)
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "YΛΛYU",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 10,
+                        fontSize: 20),
+                  ),
+                  Text(
+                    "sphere",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 10),
+                  ),
+                ],
+              )
           ],
         );
       },
@@ -145,7 +147,7 @@ class ExampleSidebarX extends StatelessWidget {
   }
 }
 
-const primaryColor = Color(0xFF685BFF);
+const primaryColor = Color.fromARGB(255, 32, 31, 51);
 const canvasColor = Color(0xFF2E2E48);
 const scaffoldBackgroundColor = Color(0xFF464667);
 const accentCanvasColor = Color(0xFF3E3E61);
