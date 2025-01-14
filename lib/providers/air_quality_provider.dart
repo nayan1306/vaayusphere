@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:vaayusphere/Api/fetchaqi.dart';
 
@@ -11,7 +13,7 @@ class ApiDataProvider with ChangeNotifier {
       _airQualityData = await fetchAirQualityData();
       notifyListeners(); // Notify listeners when data changes
     } catch (error) {
-      print('Error fetching data: $error');
+      log("Error fetching air quality data: $error");
     }
   }
 }

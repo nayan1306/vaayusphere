@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> fetchAirQualityData() async {

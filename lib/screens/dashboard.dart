@@ -26,6 +26,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
 
     // Fetch air quality data when the widget is initialized
     Future.delayed(Duration.zero, () {
+      // ignore: use_build_context_synchronously
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
       provider.fetchAndSetAirQualityData();
     });
@@ -33,7 +34,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    Theme.of(context);
 
     return Scaffold(
       appBar: CommonAppBar(

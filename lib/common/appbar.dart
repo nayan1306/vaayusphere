@@ -40,9 +40,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Expanded(
                   child: CoolSearchField(
                     hintText: "Search...",
-                    onChanged: (query) {
-                      print("Search query: $query");
-                    },
+                    onChanged: (query) {},
                   ),
                 ),
 
@@ -55,21 +53,15 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.notifications, color: Colors.grey),
-                      onPressed: () {
-                        print("Notifications clicked");
-                      },
+                      onPressed: () {},
                     ),
                     IconButton(
                       icon: const Icon(Icons.favorite, color: Colors.grey),
-                      onPressed: () {
-                        print("Favorites clicked");
-                      },
+                      onPressed: () {},
                     ),
                     IconButton(
                       icon: const Icon(Icons.settings, color: Colors.grey),
-                      onPressed: () {
-                        print("Settings clicked");
-                      },
+                      onPressed: () {},
                     ),
                     IconButton(
                         onPressed: () {},
