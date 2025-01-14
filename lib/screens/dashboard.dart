@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/sidebar.dart';
-import 'package:vaayusphere/providers/air_quality_provider.dart';
+import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqigaugecard.dart';
 import 'package:vaayusphere/widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/infotile.dart';
 import 'package:vaayusphere/widgets/no2linechart.dart';
 import 'package:vaayusphere/widgets/so2linechart.dart';
+import 'package:vaayusphere/widgets/weathercard.dart';
 
 class DashboardPlaceholder extends StatefulWidget {
   const DashboardPlaceholder({
@@ -81,7 +82,15 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                         ],
                       ),
                       SizedBox(height: 20),
-                      AqiLineChart(),
+                      Row(
+                        children: [
+                          AqiLineChart(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          WeatherCard()
+                        ],
+                      ),
                       SizedBox(height: 20),
                       No2LineChart(),
                       SizedBox(height: 20),

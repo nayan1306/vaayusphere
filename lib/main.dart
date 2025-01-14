@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vaayusphere/providers/air_quality_provider.dart';
+import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/screens/homescreen.dart';
 
 void main() {

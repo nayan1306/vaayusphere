@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vaayusphere/providers/air_quality_provider.dart';
+import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/glasscard.dart';
 import 'package:geekyants_flutter_gauges/geekyants_flutter_gauges.dart';
 

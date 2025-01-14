@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart'; // Import Syncfusion chart package
 import 'package:vaayusphere/widgets/glasscard.dart';
-import 'package:vaayusphere/providers/air_quality_provider.dart'; // Adjust import path
+import 'package:vaayusphere/providers/apidataprovider.dart'; // Adjust import path
 // For date formatting
 
 class AqiLineChart extends StatelessWidget {
