@@ -24,6 +24,9 @@ class DashboardPlaceholder extends StatefulWidget {
 }
 
 class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
+  final ScrollController _scrollController = ScrollController();
+  double _sizedBoxHeight = 50.0;
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +37,18 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
       provider.fetchAndSetAirQualityData();
     });
+
+    _scrollController.addListener(() {
+      setState(() {
+        _sizedBoxHeight = _scrollController.offset > 0 ? 0.0 : 50.0;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,15 +57,90 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
 
     return Scaffold(
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
           SliverAppBar(
-            expandedHeight: 100.0, // Height of the flexible space
+            expandedHeight: 120.0, // Height of the flexible space
             pinned: true,
             backgroundColor: primaryColor,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                color:
-                    canvasColor, // Set the background color or image as needed
+                foregroundDecoration: BoxDecoration(
+                  color: const Color.fromARGB(184, 51, 32, 64).withOpacity(0.5),
+                ),
+                child: Image.network(
+                  "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/pmountbanner.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(1.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Search Location',
+                                hintStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.5),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.white.withOpacity(0.5),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                filled: true,
+                                fillColor:
+                                    const Color.fromARGB(61, 255, 255, 255),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.notifications,
+                              size: 40,
+                              color: Color.fromARGB(255, 255, 214, 214),
+                            ),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.settings,
+                              size: 40,
+                              color: Color.fromARGB(255, 228, 181, 255),
+                            ),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.account_circle,
+                              size: 40,
+                              color: Color.fromARGB(255, 150, 134, 255),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: _sizedBoxHeight,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -88,7 +178,6 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                           WeatherCard(),
                         ],
                       ),
-                      // SizedBox(height: 20), // Add spacing between rows
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
