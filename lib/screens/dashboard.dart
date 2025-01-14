@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
-import 'package:vaayusphere/common/appbar.dart';
 import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/air_quality_provider.dart';
 import 'package:vaayusphere/widgets/aqigaugecard.dart';
@@ -85,7 +84,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                       SizedBox(height: 20),
                       No2LineChart(),
                       SizedBox(height: 20),
-                      No2LineChart(),
+                      // No2LineChart(),
                     ],
                   ),
                 );

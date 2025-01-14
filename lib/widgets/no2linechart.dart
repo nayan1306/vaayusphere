@@ -99,10 +99,10 @@ class No2LineChart extends StatelessWidget {
                           yValueMapper: (_AqiData data, _) => data.aqi,
                           name: 'NO₂',
                           width: 5,
-                          color: const Color.fromARGB(255, 210, 249, 255),
+                          color: const Color.fromARGB(255, 195, 247, 189),
                           markerSettings: const MarkerSettings(
                               isVisible: true,
-                              color: Color.fromARGB(255, 255, 205, 105)),
+                              color: Color.fromARGB(255, 255, 122, 82)),
                           dataLabelSettings: const DataLabelSettings(
                             isVisible: false, // Disable default data labels
                           ),
