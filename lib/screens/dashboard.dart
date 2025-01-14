@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/appbar.dart';
+import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/air_quality_provider.dart';
 import 'package:vaayusphere/widgets/aqigaugecard.dart';
 import 'package:vaayusphere/widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/infotile.dart';
+import 'package:vaayusphere/widgets/no2linechart.dart';
 
 class DashboardPlaceholder extends StatefulWidget {
   const DashboardPlaceholder({
@@ -37,60 +39,61 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
     Theme.of(context);
 
     return Scaffold(
-      appBar: CommonAppBar(
-        title: _getTitleByIndex(widget.controller.selectedIndex),
-      ),
-      body: AnimatedBuilder(
-        animation: widget.controller,
-        builder: (context, child) {
-          return const Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    AqiPm10InfoTile(),
-                    SizedBox(width: 20),
-                    AqiPm2InfoTile(),
-                    SizedBox(width: 20),
-                    SulphurDioxideInfoTile(),
-                    SizedBox(width: 20),
-                    NitrogenDioxideInfoTile(),
-                    SizedBox(width: 30),
-                    AqiGaugeCard()
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                AqiLineChart(),
-              ],
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 100.0, // Height of the flexible space
+            // floating: false,
+            pinned: true,
+            backgroundColor: primaryColor,
+            flexibleSpace: FlexibleSpaceBar(
+              // title: Text(_getTitleByIndex(widget.controller.selectedIndex)),
+              background: Container(
+                color:
+                    canvasColor, // Set the background color or image as needed
+              ),
             ),
-          );
-        },
+          ),
+          SliverToBoxAdapter(
+            child: ListView.builder(
+              shrinkWrap:
+                  true, // Allows the ListView to be used inside a CustomScrollView
+              physics: const ScrollPhysics(),
+              itemCount:
+                  1, // You can adjust this based on how many sections you need
+              itemBuilder: (context, index) {
+                return const Padding(
+                  padding: EdgeInsets.all(25.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AqiPm10InfoTile(),
+                          SizedBox(width: 20),
+                          AqiPm2InfoTile(),
+                          SizedBox(width: 20),
+                          SulphurDioxideInfoTile(),
+                          SizedBox(width: 20),
+                          NitrogenDioxideInfoTile(),
+                          SizedBox(width: 30),
+                          AqiGaugeCard(),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      AqiLineChart(),
+                      SizedBox(height: 20),
+                      No2LineChart(),
+                      SizedBox(height: 20),
+                      No2LineChart(),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  String _getTitleByIndex(int index) {
-    switch (index) {
-      case 0:
-        return 'Home';
-      case 1:
-        return 'Search';
-      case 2:
-        return 'People';
-      case 3:
-        return 'Favorites';
-      case 4:
-        return 'Custom Icon';
-      case 5:
-        return 'Profile';
-      case 6:
-        return 'Settings';
-      default:
-        return 'Not Found';
-    }
   }
 }
