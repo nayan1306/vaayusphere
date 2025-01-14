@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/glasscard.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:vaayusphere/widgets/weatherforecastcard.dart';
 
 class WeatherCard extends StatelessWidget {
   const WeatherCard({super.key});
@@ -178,11 +179,7 @@ class WeatherCard extends StatelessWidget {
                         ],
                       ),
                       // weather forecast
-                      Container(
-                        color: Colors.amber,
-                        height: 250,
-                        width: 500,
-                      )
+                      const WeatherForecastCard()
                     ],
                   )
                 : SizedBox(
