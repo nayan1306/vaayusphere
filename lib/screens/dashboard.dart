@@ -4,6 +4,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/appbar.dart';
 import 'package:vaayusphere/providers/air_quality_provider.dart';
 import 'package:vaayusphere/widgets/aqigaugecard.dart';
+import 'package:vaayusphere/widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/infotile.dart';
 
 class DashboardPlaceholder extends StatefulWidget {
@@ -58,7 +59,11 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                     SizedBox(width: 30),
                     AqiGaugeCard()
                   ],
-                )
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                AqiLineChart(),
               ],
             ),
           );
