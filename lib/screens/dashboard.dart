@@ -5,6 +5,7 @@ import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqigaugecard.dart';
 import 'package:vaayusphere/widgets/aqilinechart.dart';
+import 'package:vaayusphere/widgets/aqimapindia.dart';
 import 'package:vaayusphere/widgets/infotile.dart';
 import 'package:vaayusphere/widgets/no2linechart.dart';
 import 'package:vaayusphere/widgets/so2linechart.dart';
@@ -44,11 +45,9 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
         slivers: [
           SliverAppBar(
             expandedHeight: 100.0, // Height of the flexible space
-            // floating: false,
             pinned: true,
             backgroundColor: primaryColor,
             flexibleSpace: FlexibleSpaceBar(
-              // title: Text(_getTitleByIndex(widget.controller.selectedIndex)),
               background: Container(
                 color:
                     canvasColor, // Set the background color or image as needed
@@ -85,16 +84,29 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                       Row(
                         children: [
                           AqiLineChart(),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          WeatherCard()
+                          SizedBox(width: 20),
+                          WeatherCard(),
                         ],
                       ),
-                      SizedBox(height: 20),
-                      No2LineChart(),
-                      SizedBox(height: 20),
-                      So2LineChart()
+                      // SizedBox(height: 20), // Add spacing between rows
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(height: 20),
+                              No2LineChart(),
+                              SizedBox(height: 20),
+                              So2LineChart()
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                          StaticAqiMapIndia()
+                        ],
+                      ),
+                      Row(
+                        children: [],
+                      ),
                     ],
                   ),
                 );
