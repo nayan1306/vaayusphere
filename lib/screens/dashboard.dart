@@ -7,6 +7,7 @@ import 'package:vaayusphere/widgets/aqigaugecard.dart';
 import 'package:vaayusphere/widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/infotile.dart';
 import 'package:vaayusphere/widgets/no2linechart.dart';
+import 'package:vaayusphere/widgets/so2linechart.dart';
 
 class DashboardPlaceholder extends StatefulWidget {
   const DashboardPlaceholder({
@@ -84,7 +85,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                       SizedBox(height: 20),
                       No2LineChart(),
                       SizedBox(height: 20),
-                      // No2LineChart(),
+                      So2LineChart()
                     ],
                   ),
                 );
