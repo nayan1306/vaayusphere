@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vaayusphere/widgets/glasscard.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart'; // Adjust import path
 
 class InfoTile extends StatelessWidget {

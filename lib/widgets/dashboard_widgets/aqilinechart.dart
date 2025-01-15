@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart'; // Import Syncfusion chart package
-import 'package:vaayusphere/widgets/glasscard.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart'; // Adjust import path
 // For date formatting
 
-class So2LineChart extends StatelessWidget {
-  const So2LineChart({super.key});
+class AqiLineChart extends StatelessWidget {
+  const AqiLineChart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class So2LineChart extends StatelessWidget {
     List<_AqiData> chartData = [];
     if (airQualityData != null) {
       final timeData = airQualityData['hourly']['time'] as List;
-      final hourlyData = airQualityData['hourly']['sulphur_dioxide'] as List;
+      final hourlyData = airQualityData['hourly']['european_aqi_pm10'] as List;
 
       chartData = List.generate(
         timeData.length,
@@ -61,7 +61,7 @@ class So2LineChart extends StatelessWidget {
                       plotAreaBorderWidth: 0.0,
 
                       title: const ChartTitle(
-                        text: 'Hourly SO₂',
+                        text: 'Hourly AQI (PM10)',
                         textStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -82,7 +82,7 @@ class So2LineChart extends StatelessWidget {
                       ),
                       primaryYAxis: const NumericAxis(
                         title: AxisTitle(
-                          text: 'SO₂',
+                          text: 'AQI (PM10)',
                           textStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -97,12 +97,12 @@ class So2LineChart extends StatelessWidget {
                           dataSource: chartData,
                           xValueMapper: (_AqiData data, _) => data.hour,
                           yValueMapper: (_AqiData data, _) => data.aqi,
-                          name: 'SO₂',
+                          name: 'AQI (PM10)',
                           width: 5,
-                          color: const Color.fromARGB(255, 239, 189, 247),
+                          color: const Color.fromARGB(255, 210, 249, 255),
                           markerSettings: const MarkerSettings(
                               isVisible: true,
-                              color: Color.fromARGB(255, 33, 27, 25)),
+                              color: Color.fromARGB(255, 255, 205, 105)),
                           dataLabelSettings: const DataLabelSettings(
                             isVisible: false, // Disable default data labels
                           ),

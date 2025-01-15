@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaayusphere/widgets/coolsearchfield.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/coolsearchfield.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

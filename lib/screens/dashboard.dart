@@ -3,13 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
-import 'package:vaayusphere/widgets/aqigaugecard.dart';
-import 'package:vaayusphere/widgets/aqilinechart.dart';
-import 'package:vaayusphere/widgets/aqimapindia.dart';
-import 'package:vaayusphere/widgets/infotile.dart';
-import 'package:vaayusphere/widgets/no2linechart.dart';
-import 'package:vaayusphere/widgets/so2linechart.dart';
-import 'package:vaayusphere/widgets/weathercard.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/aqigaugecard.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/aqimapindia.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/infotile.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/so2linechart.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/weathercard.dart';
 
 class DashboardPlaceholder extends StatefulWidget {
   const DashboardPlaceholder({
@@ -110,26 +110,26 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.notifications,
                               size: 40,
-                              color: Color.fromARGB(255, 255, 214, 214),
+                              color: Colors.white.withOpacity(0.5),
                             ),
                             onPressed: () {},
                           ),
                           IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.settings,
                               size: 40,
-                              color: Color.fromARGB(255, 228, 181, 255),
+                              color: Colors.white.withOpacity(0.5),
                             ),
                             onPressed: () {},
                           ),
                           IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.account_circle,
                               size: 40,
-                              color: Color.fromARGB(255, 150, 134, 255),
+                              color: Colors.white.withOpacity(0.5),
                             ),
                             onPressed: () {},
                           ),
