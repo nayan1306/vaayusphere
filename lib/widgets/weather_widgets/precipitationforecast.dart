@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart'; // Import Syncfusion chart package
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart'; // Adjust import path
+// import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart'; // Adjust import path
 // For date formatting
 
 class PrecipitationForecastLineChart extends StatelessWidget {
@@ -28,6 +29,9 @@ class PrecipitationForecastLineChart extends StatelessWidget {
           return _AqiData(hour, hourlyData[index].toDouble());
         },
       );
+
+      // Sort the chart data by hour
+      chartData.sort((a, b) => a.hour.compareTo(b.hour));
     }
 
     // Configure zooming and panning behavior
@@ -63,7 +67,7 @@ class PrecipitationForecastLineChart extends StatelessWidget {
                       plotAreaBorderWidth: 0.0,
 
                       title: const ChartTitle(
-                        text: 'Hourly NO₂',
+                        text: 'Temperature 2m',
                         textStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -84,7 +88,7 @@ class PrecipitationForecastLineChart extends StatelessWidget {
                       ),
                       primaryYAxis: const NumericAxis(
                         title: AxisTitle(
-                          text: 'NO₂',
+                          text: 'Temp',
                           textStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -99,7 +103,7 @@ class PrecipitationForecastLineChart extends StatelessWidget {
                           dataSource: chartData,
                           xValueMapper: (_AqiData data, _) => data.hour,
                           yValueMapper: (_AqiData data, _) => data.aqi,
-                          name: 'NO₂',
+                          name: 'Temp',
                           width: 5,
                           color: const Color.fromARGB(255, 195, 247, 189),
                           markerSettings: const MarkerSettings(
@@ -115,9 +119,19 @@ class PrecipitationForecastLineChart extends StatelessWidget {
                       borderColor: Colors.transparent,
                     ),
                   )
-                : Image.asset(
-                    "./assets/gifs/air.gif",
-                    width: 150,
+                : SizedBox(
+                    width: 200,
+                    child: LoadingIndicator(
+                      colors: [
+                        Colors.blue.shade100, // Light and gentle sky blue
+                        Colors.blue.shade200, // Soft pastel blue
+                        Colors.blue.shade300, // Calm and serene medium blue
+                        Colors.blue.shade400, // Cool, peaceful azure blue
+                        Colors.blue.shade500, // Subtle and deeper blue
+                      ],
+                      indicatorType: Indicator.lineScalePulseOut,
+                      strokeWidth: 3,
+                    ),
                   ), // Show a loader while data is being fetched
             const SizedBox(height: 10),
           ],
