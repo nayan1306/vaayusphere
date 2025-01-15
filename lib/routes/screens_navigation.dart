@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/screens/dashboard.dart';
+import 'package:vaayusphere/screens/weather.dart';
 
 class ScreensExample extends StatelessWidget {
   const ScreensExample({
@@ -20,6 +21,9 @@ class ScreensExample extends StatelessWidget {
         switch (controller.selectedIndex) {
           case 0:
             return Center(child: DashboardPlaceholder(controller: controller));
+          case 1:
+            return Center(
+                child: WeatherScreenPlaceHolder(controller: controller));
           default:
             return Text(
               pageTitle,

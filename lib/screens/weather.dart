@@ -3,13 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/aqigaugecard.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/aqimapindia.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/infotile.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/so2linechart.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/weathercard.dart';
 
 class WeatherScreenPlaceHolder extends StatefulWidget {
   const WeatherScreenPlaceHolder({
@@ -69,8 +62,8 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                   color: const Color.fromARGB(184, 51, 32, 64).withOpacity(0.5),
                 ),
                 child: Image.network(
-                  "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/pmountbanner.png",
-                  fit: BoxFit.cover,
+                  "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/mount_long.png",
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),
@@ -156,47 +149,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                   padding: EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          AqiPm10InfoTile(),
-                          SizedBox(width: 20),
-                          AqiPm2InfoTile(),
-                          SizedBox(width: 20),
-                          SulphurDioxideInfoTile(),
-                          SizedBox(width: 20),
-                          NitrogenDioxideInfoTile(),
-                          SizedBox(width: 30),
-                          AqiGaugeCard(),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        children: [
-                          AqiLineChart(),
-                          SizedBox(width: 20),
-                          WeatherCard(),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              SizedBox(height: 20),
-                              No2LineChart(),
-                              SizedBox(height: 20),
-                              So2LineChart()
-                            ],
-                          ),
-                          SizedBox(width: 20),
-                          StaticAqiMapIndia()
-                        ],
-                      ),
-                      Row(
-                        children: [],
-                      ),
-                    ],
+                    children: [],
                   ),
                 );
               },
