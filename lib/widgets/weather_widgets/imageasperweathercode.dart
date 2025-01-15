@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 
 class ImageAsPerWeatherCode extends StatelessWidget {

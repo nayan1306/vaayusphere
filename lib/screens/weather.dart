@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
@@ -6,7 +8,6 @@ import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:flutter_location_search/flutter_location_search.dart';
 import 'package:vaayusphere/widgets/weather_widgets/apparenttemplinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/dewpointlinechart.dart';
-import 'package:vaayusphere/widgets/weather_widgets/imageasperweathercode.dart';
 import 'package:vaayusphere/widgets/weather_widgets/precipitationforecastlinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/precipitationlinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/precipitationproblinechart.dart';
@@ -70,7 +71,6 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
         _selectedLocation = locationData.address;
       });
       // You can handle the location data further, e.g., fetch weather data for the selected location.
-      print('Selected location: ${locationData.address}');
     }
   }
 

@@ -47,7 +47,6 @@ class ApiDataProvider with ChangeNotifier {
       _currentLocation = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-      print("Location fetched: $_currentLocation");
       notifyListeners();
     } catch (error) {
       log("Error fetching location: $error");

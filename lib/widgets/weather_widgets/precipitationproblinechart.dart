@@ -13,6 +13,7 @@ class PrecipitationProbabilityLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Access the air quality data from the provider
+    // ignore: non_constant_identifier_names
     final WeatherData =
         Provider.of<ApiDataProvider>(context).weatherForecastDataDetailed;
 
