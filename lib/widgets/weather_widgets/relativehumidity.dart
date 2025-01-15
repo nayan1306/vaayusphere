@@ -7,8 +7,8 @@ import 'package:vaayusphere/providers/apidataprovider.dart';
 // import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart'; // Adjust import path
 // For date formatting
 
-class TemperatureForecasLineChart extends StatelessWidget {
-  const TemperatureForecasLineChart({super.key});
+class RelativeHumidityLineChart extends StatelessWidget {
+  const RelativeHumidityLineChart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class TemperatureForecasLineChart extends StatelessWidget {
     List<_AqiData> chartData = [];
     if (WeatherData != null) {
       final timeData = WeatherData['hourly']['time'] as List;
-      final hourlyData = WeatherData['hourly']['temperature_2m'] as List;
+      final hourlyData = WeatherData['hourly']['relative_humidity_2m'] as List;
 
       chartData = List.generate(
         timeData.length,
@@ -67,7 +67,7 @@ class TemperatureForecasLineChart extends StatelessWidget {
                       plotAreaBorderWidth: 0.0,
 
                       title: const ChartTitle(
-                        text: 'Temperature 2m',
+                        text: 'Relaitve humidity 2m',
                         textStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -88,7 +88,7 @@ class TemperatureForecasLineChart extends StatelessWidget {
                       ),
                       primaryYAxis: const NumericAxis(
                         title: AxisTitle(
-                          text: 'Temp',
+                          text: 'Humidity',
                           textStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -103,12 +103,12 @@ class TemperatureForecasLineChart extends StatelessWidget {
                           dataSource: chartData,
                           xValueMapper: (_AqiData data, _) => data.hour,
                           yValueMapper: (_AqiData data, _) => data.aqi,
-                          name: 'Temp',
+                          name: 'Humidity',
                           width: 5,
-                          color: const Color.fromARGB(255, 246, 247, 189),
+                          color: const Color.fromARGB(255, 189, 247, 237),
                           markerSettings: const MarkerSettings(
                               isVisible: true,
-                              color: Color.fromARGB(255, 255, 122, 82)),
+                              color: Color.fromARGB(255, 82, 177, 255)),
                           dataLabelSettings: const DataLabelSettings(
                             isVisible: false, // Disable default data labels
                           ),

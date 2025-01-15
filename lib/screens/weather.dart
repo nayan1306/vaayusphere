@@ -5,6 +5,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:flutter_location_search/flutter_location_search.dart';
 import 'package:vaayusphere/widgets/weather_widgets/precipitationforecast.dart';
+import 'package:vaayusphere/widgets/weather_widgets/relativehumidity.dart';
 import 'package:vaayusphere/widgets/weather_widgets/weathercardbig.dart';
 
 class WeatherScreenPlaceHolder extends StatefulWidget {
@@ -30,7 +31,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
     super.initState();
 
     // Fetch air quality data when the widget is initialized
-    Future.delayed(Duration.zero, () {
+    Future.delayed(const Duration(seconds: 1), () {
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
       // provider.fetchAndSetWeatherForecastData();
       provider.fetchAndSetWeatherForecastDataDetailed();
@@ -77,7 +78,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
           SliverAppBar(
             expandedHeight: 120.0, // Height of the flexible space
             pinned: true,
-            backgroundColor: const Color.fromARGB(0, 32, 31, 51),
+            backgroundColor: const Color.fromARGB(255, 75, 73, 108),
             flexibleSpace: ClipRRect(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
@@ -87,7 +88,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                 background: Container(
                   foregroundDecoration: BoxDecoration(
                     color:
-                        const Color.fromARGB(184, 51, 32, 64).withOpacity(0.5),
+                        const Color.fromARGB(255, 41, 64, 32).withOpacity(0.5),
                   ),
                   child: Image.network(
                     "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/mount_long.png",
@@ -173,7 +174,11 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                       SizedBox(
                         height: 20,
                       ),
-                      PrecipitationForecastLineChart()
+                      TemperatureForecasLineChart(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      RelativeHumidityLineChart()
                     ],
                   ),
                 );
