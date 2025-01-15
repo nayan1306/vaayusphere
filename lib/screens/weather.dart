@@ -4,8 +4,9 @@ import 'package:sidebarx/sidebarx.dart';
 // import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:flutter_location_search/flutter_location_search.dart';
-import 'package:vaayusphere/widgets/weather_widgets/precipitationforecast.dart';
-import 'package:vaayusphere/widgets/weather_widgets/relativehumidity.dart';
+import 'package:vaayusphere/widgets/weather_widgets/dewpointlinechart.dart';
+import 'package:vaayusphere/widgets/weather_widgets/precipitationforecastlinechart.dart';
+import 'package:vaayusphere/widgets/weather_widgets/relativehumiditylinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/weathercardbig.dart';
 
 class WeatherScreenPlaceHolder extends StatefulWidget {
@@ -174,7 +175,15 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                       SizedBox(
                         height: 20,
                       ),
-                      TemperatureForecasLineChart(),
+                      Row(
+                        children: [
+                          TemperatureForecasLineChart(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          DewPointLineChart()
+                        ],
+                      ),
                       SizedBox(
                         height: 20,
                       ),
