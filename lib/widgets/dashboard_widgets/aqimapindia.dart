@@ -73,6 +73,7 @@ class StaticAqiMapIndia extends StatelessWidget {
     List<Marker> markers = [];
 
     // Example: Adding markers for each air quality data point (this is based on your data structure)
+    // ignore: unused_local_variable
     for (var data in airQualityData) {
       // Replace with actual latitude and longitude from airQualityData
       double lat = 21.5166; // Example latitude
