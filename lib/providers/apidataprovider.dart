@@ -9,10 +9,13 @@ class ApiDataProvider with ChangeNotifier {
   Map<String, dynamic>? _airQualityData;
   Map<String, dynamic>? _airQualityDataDetailed;
   Map<String, dynamic>? _weatherForecastData;
+  Map<String, dynamic>? _weatherForecastDataDetailed;
 
   Map<String, dynamic>? get airQualityData => _airQualityData;
   Map<String, dynamic>? get airQualityDataDetailed => _airQualityDataDetailed;
   Map<String, dynamic>? get weatherForecastData => _weatherForecastData;
+  Map<String, dynamic>? get weatherForecastDataDetailed =>
+      _weatherForecastDataDetailed;
 
   // Location data
   Position? _currentLocation;
@@ -96,6 +99,22 @@ class ApiDataProvider with ChangeNotifier {
       notifyListeners(); // Notify listeners when data changes
     } catch (error) {
       log("Error fetching weather forecast data: $error");
+    }
+  }
+
+  Future<void> fetchAndSetWeatherForecastDataDetailed() async {
+    if (_currentLocation == null) {
+      log("Cannot fetch weather forecast data without location.");
+      return;
+    }
+    try {
+      _weatherForecastDataDetailed = await fetchWeatherDataDetailed(
+        latitude: _currentLocation!.latitude,
+        longitude: _currentLocation!.longitude,
+      );
+      notifyListeners(); // Notify listeners when data changes
+    } catch (error) {
+      log("Error fetching detailed weather forecast data: $error");
     }
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
-import 'package:vaayusphere/common/sidebar.dart';
+// import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:flutter_location_search/flutter_location_search.dart';
+import 'package:vaayusphere/widgets/weather_widgets/precipitationforecast.dart';
 import 'package:vaayusphere/widgets/weather_widgets/weathercardbig.dart';
 
 class WeatherScreenPlaceHolder extends StatefulWidget {
@@ -31,7 +32,8 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
     // Fetch air quality data when the widget is initialized
     Future.delayed(Duration.zero, () {
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
-      provider.fetchAndSetWeatherForecastData();
+      // provider.fetchAndSetWeatherForecastData();
+      provider.fetchAndSetWeatherForecastDataDetailed();
     });
 
     _scrollController.addListener(() {
@@ -166,7 +168,13 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                   padding: EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [WeatherCardBig()],
+                    children: [
+                      WeatherCardBig(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      PrecipitationForecastLineChart()
+                    ],
                   ),
                 );
               },
