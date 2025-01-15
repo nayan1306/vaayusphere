@@ -109,6 +109,10 @@ class ExampleSidebarX extends StatelessWidget {
           },
         ),
         const SidebarXItem(
+          icon: Icons.cloud_queue, // Icon for weather
+          label: 'AQI',
+        ),
+        const SidebarXItem(
           icon: Icons.wb_sunny, // Icon for weather
           label: 'Weather',
         ),

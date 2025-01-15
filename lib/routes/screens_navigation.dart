@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/screens/aqi.dart';
 import 'package:vaayusphere/screens/dashboard.dart';
 import 'package:vaayusphere/screens/weather.dart';
 
@@ -22,6 +23,8 @@ class ScreensExample extends StatelessWidget {
           case 0:
             return Center(child: DashboardPlaceholder(controller: controller));
           case 1:
+            return Center(child: AqiScreenPlaceholder(controller: controller));
+          case 2:
             return Center(
                 child: WeatherScreenPlaceHolder(controller: controller));
           default:
@@ -39,9 +42,9 @@ class ScreensExample extends StatelessWidget {
       case 0:
         return 'Dashboard';
       case 1:
-        return 'Weather';
+        return 'Aqi';
       case 2:
-        return 'Vote';
+        return 'Weather';
       case 3:
         return 'News';
       case 4:
