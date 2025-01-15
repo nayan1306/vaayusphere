@@ -4,6 +4,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:flutter_location_search/flutter_location_search.dart';
+import 'package:vaayusphere/widgets/weather_widgets/weathercardbig.dart';
 
 class WeatherScreenPlaceHolder extends StatefulWidget {
   const WeatherScreenPlaceHolder({
@@ -30,7 +31,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
     // Fetch air quality data when the widget is initialized
     Future.delayed(Duration.zero, () {
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
-      provider.fetchAndSetAirQualityData();
+      provider.fetchAndSetWeatherForecastData();
     });
 
     _scrollController.addListener(() {
@@ -74,15 +75,22 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
           SliverAppBar(
             expandedHeight: 120.0, // Height of the flexible space
             pinned: true,
-            backgroundColor: primaryColor,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                foregroundDecoration: BoxDecoration(
-                  color: const Color.fromARGB(184, 51, 32, 64).withOpacity(0.5),
-                ),
-                child: Image.network(
-                  "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/mount_long.png",
-                  fit: BoxFit.fitWidth,
+            backgroundColor: const Color.fromARGB(0, 32, 31, 51),
+            flexibleSpace: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+              child: FlexibleSpaceBar(
+                background: Container(
+                  foregroundDecoration: BoxDecoration(
+                    color:
+                        const Color.fromARGB(184, 51, 32, 64).withOpacity(0.5),
+                  ),
+                  child: Image.network(
+                    "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/mount_long.png",
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
             ),
@@ -158,7 +166,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                   padding: EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [],
+                    children: [WeatherCardBig()],
                   ),
                 );
               },

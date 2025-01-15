@@ -4,7 +4,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/aqigaugecarddetailed.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/pm10linechart.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
+// import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
 
 class AqiScreenPlaceholder extends StatefulWidget {
