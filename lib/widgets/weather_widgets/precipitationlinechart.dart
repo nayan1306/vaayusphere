@@ -7,8 +7,8 @@ import 'package:vaayusphere/providers/apidataprovider.dart';
 // import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart'; // Adjust import path
 // For date formatting
 
-class PrecipitationProbabilityLineChart extends StatelessWidget {
-  const PrecipitationProbabilityLineChart({super.key});
+class PrecipitationLineChart extends StatelessWidget {
+  const PrecipitationLineChart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,7 @@ class PrecipitationProbabilityLineChart extends StatelessWidget {
     List<_AqiData> chartData = [];
     if (WeatherData != null) {
       final timeData = WeatherData['hourly']['time'] as List;
-      final hourlyData =
-          WeatherData['hourly']['precipitation_probability'] as List;
+      final hourlyData = WeatherData['hourly']['precipitation'] as List;
 
       chartData = List.generate(
         timeData.length,
@@ -68,7 +67,7 @@ class PrecipitationProbabilityLineChart extends StatelessWidget {
                       plotAreaBorderWidth: 0.0,
 
                       title: const ChartTitle(
-                        text: 'Precipitation Probability',
+                        text: 'Precipitation ',
                         textStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -89,7 +88,7 @@ class PrecipitationProbabilityLineChart extends StatelessWidget {
                       ),
                       primaryYAxis: const NumericAxis(
                         title: AxisTitle(
-                          text: 'Precipitation Probability',
+                          text: 'Precipitation ',
                           textStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -104,12 +103,12 @@ class PrecipitationProbabilityLineChart extends StatelessWidget {
                           dataSource: chartData,
                           xValueMapper: (_AqiData data, _) => data.hour,
                           yValueMapper: (_AqiData data, _) => data.aqi,
-                          name: 'preciptation probability',
+                          name: 'preciptation ',
                           width: 5,
-                          color: const Color.fromARGB(255, 152, 255, 241),
+                          color: const Color.fromARGB(255, 0, 238, 255),
                           markerSettings: const MarkerSettings(
                               isVisible: true,
-                              color: Color.fromARGB(255, 41, 165, 138)),
+                              color: Color.fromARGB(255, 0, 127, 134)),
                           dataLabelSettings: const DataLabelSettings(
                             isVisible: false, // Disable default data labels
                           ),

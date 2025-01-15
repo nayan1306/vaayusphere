@@ -7,6 +7,8 @@ import 'package:flutter_location_search/flutter_location_search.dart';
 import 'package:vaayusphere/widgets/weather_widgets/apparenttemplinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/dewpointlinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/precipitationforecastlinechart.dart';
+import 'package:vaayusphere/widgets/weather_widgets/precipitationlinechart.dart';
+import 'package:vaayusphere/widgets/weather_widgets/precipitationproblinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/relativehumiditylinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/weathercardbig.dart';
 
@@ -195,6 +197,18 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                             width: 20,
                           ),
                           DewPointLineChart()
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          PrecipitationProbabilityLineChart(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          PrecipitationLineChart()
                         ],
                       )
                     ],
