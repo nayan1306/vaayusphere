@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart';
+// import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart';
 import 'package:vaayusphere/widgets/weather_widgets/weatherforecastbig.dart';
 
 class WeatherCardBig extends StatelessWidget {
