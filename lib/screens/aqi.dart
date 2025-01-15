@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
-import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/aqigaugecarddetailed.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/locationcard.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/aqigaugecard.dart';
 
 class AqiScreenPlaceholder extends StatefulWidget {
   const AqiScreenPlaceholder({
@@ -28,6 +30,7 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
     Future.delayed(Duration.zero, () {
       // ignore: use_build_context_synchronously
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
+      // provider.fetchAndSetWeatherForecastData();
       provider.fetchAndSetAirQualityData();
     });
 
@@ -157,7 +160,7 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
                   padding: EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [],
+                    children: [AqiGaugeCardDetailed(), LocationCard()],
                   ),
                 );
               },

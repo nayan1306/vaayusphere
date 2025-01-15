@@ -1,31 +1,80 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:vaayusphere/Api/fetchaqi.dart';
 import 'package:vaayusphere/Api/fetchweather.dart';
 
 class ApiDataProvider with ChangeNotifier {
+  // Air quality and weather data
   Map<String, dynamic>? _airQualityData;
-
-  Map<String, dynamic>? get airQualityData => _airQualityData;
-
   Map<String, dynamic>? _weatherForecastData;
 
+  Map<String, dynamic>? get airQualityData => _airQualityData;
   Map<String, dynamic>? get weatherForecastData => _weatherForecastData;
+
+  // Location data
+  Position? _currentLocation;
+
+  Position? get currentLocation => _currentLocation;
+
+  ApiDataProvider() {
+    _initializeLocation();
+  }
+
+  Future<void> _initializeLocation() async {
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        log("Location services are disabled.");
+        return;
+      }
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied ||
+            permission == LocationPermission.deniedForever) {
+          log("Location permissions are denied.");
+          return;
+        }
+      }
+
+      _currentLocation = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      print("Location fetched: $_currentLocation");
+      notifyListeners();
+    } catch (error) {
+      log("Error fetching location: $error");
+    }
+  }
 
   Future<void> fetchAndSetAirQualityData() async {
     try {
-      _airQualityData = await fetchAirQualityData();
+      if (_currentLocation == null) {
+        log("Cannot fetch air quality data without location.");
+        return;
+      }
+      _airQualityData = await fetchAirQualityData(
+        latitude: _currentLocation!.latitude,
+        longitude: _currentLocation!.longitude,
+      );
       notifyListeners(); // Notify listeners when data changes
     } catch (error) {
       log("Error fetching air quality data: $error");
     }
   }
 
-  // weather data
-
-  Future<void> fetchAndSetweatherForecastData() async {
+  Future<void> fetchAndSetWeatherForecastData() async {
     try {
-      _weatherForecastData = await fetchWeatherData();
+      if (_currentLocation == null) {
+        log("Cannot fetch weather forecast data without location.");
+        return;
+      }
+      _weatherForecastData = await fetchWeatherData(
+        latitude: _currentLocation!.latitude,
+        longitude: _currentLocation!.longitude,
+      );
       notifyListeners(); // Notify listeners when data changes
     } catch (error) {
       log("Error fetching weather forecast data: $error");

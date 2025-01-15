@@ -14,7 +14,7 @@ class WeatherForecastCard extends StatelessWidget {
 
     // Fetch weather data if not already fetched
     if (weatherData == null) {
-      weatherProvider.fetchAndSetweatherForecastData();
+      weatherProvider.fetchAndSetWeatherForecastData();
       return const Center(
         child: CircularProgressIndicator(),
       );
