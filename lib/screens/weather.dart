@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
+import 'package:flutter_location_search/flutter_location_search.dart';
 
 class WeatherScreenPlaceHolder extends StatefulWidget {
   const WeatherScreenPlaceHolder({
@@ -19,6 +20,8 @@ class WeatherScreenPlaceHolder extends StatefulWidget {
 class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
   final ScrollController _scrollController = ScrollController();
   double _sizedBoxHeight = 50.0;
+  String _selectedLocation =
+      'Tap here to search a place'; // Default text for location
 
   @override
   void initState() {
@@ -26,7 +29,6 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
 
     // Fetch air quality data when the widget is initialized
     Future.delayed(Duration.zero, () {
-      // ignore: use_build_context_synchronously
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
       provider.fetchAndSetAirQualityData();
     });
@@ -42,6 +44,23 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  Future<void> _searchLocation() async {
+    LocationData? locationData = await LocationSearch.show(
+      countryCodes: ['IN'],
+      context: context,
+      lightAddress: false,
+      mode: Mode.overlay,
+    );
+
+    if (locationData != null) {
+      setState(() {
+        _selectedLocation = locationData.address;
+      });
+      // You can handle the location data further, e.g., fetch weather data for the selected location.
+      print('Selected location: ${locationData.address}');
+    }
   }
 
   @override
@@ -81,24 +100,14 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                           const SizedBox(
                             width: 20,
                           ),
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Search Location',
-                                hintStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.5),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.white.withOpacity(0.5),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor:
-                                    const Color.fromARGB(61, 255, 255, 255),
+                          // Use TextButton for location search
+                          TextButton(
+                            onPressed: _searchLocation,
+                            child: Text(
+                              _selectedLocation,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
                               ),
                             ),
                           ),
@@ -130,7 +139,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                       ),
                       SizedBox(
                         height: _sizedBoxHeight,
-                      )
+                      ),
                     ],
                   ),
                 ),

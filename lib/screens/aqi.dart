@@ -160,7 +160,9 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
                   padding: EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [AqiGaugeCardDetailed(), LocationCard()],
+                    children: [
+                      AqiGaugeCardDetailed(),
+                    ],
                   ),
                 );
               },

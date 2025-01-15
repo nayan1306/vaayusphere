@@ -26,6 +26,7 @@ dependencies:
   location: ^5.0.0
   geolocator: ^12.0.0
   flutter_location_search: ^1.2.0
+  location_picker_flutter_map: ^1.1.0
   
 
 dev_dependencies:

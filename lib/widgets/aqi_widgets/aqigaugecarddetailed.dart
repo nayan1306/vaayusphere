@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/locationcard.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:geekyants_flutter_gauges/geekyants_flutter_gauges.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/infotile.dart';
 
 class AqiGaugeCardDetailed extends StatelessWidget {
   const AqiGaugeCardDetailed({super.key});
@@ -74,64 +76,48 @@ class AqiGaugeCardDetailed extends StatelessWidget {
           children: [
             // AQI value display
             airQualityData != null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                ? Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 60),
-                        child: Text(
-                          "Air Quality ",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(222, 255, 255, 255),
-                          ),
-                        ),
-                      ),
-                      Row(
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            getAqiEmoji(double.parse(
-                              airQualityData['hourly']['european_aqi_pm10'][0]
-                                  .toString(),
-                            )),
-                            style: const TextStyle(
-                              fontSize: 50,
-                              fontWeight: FontWeight.w500,
+                          const Padding(
+                            padding: EdgeInsets.only(left: 60),
+                            child: Text(
+                              "Air Quality ",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(222, 255, 255, 255),
+                              ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            airQualityData['hourly']['european_aqi_pm10'][0]
-                                .toString(),
-                            style: TextStyle(
-                              fontSize: 60,
-                              fontWeight: FontWeight.bold,
-                              color: getAqiColor(double.parse(
-                                airQualityData['hourly']['european_aqi_pm10'][0]
-                                    .toString(),
-                              )),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
                               Text(
-                                getAqiStatus(double.parse(
+                                getAqiEmoji(double.parse(
                                   airQualityData['hourly']['european_aqi_pm10']
                                           [0]
                                       .toString(),
                                 )),
-                                style: TextStyle(
-                                  fontSize: 25,
+                                style: const TextStyle(
+                                  fontSize: 50,
                                   fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                airQualityData['hourly']['european_aqi_pm10'][0]
+                                    .toString(),
+                                style: TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.bold,
                                   color: getAqiColor(double.parse(
                                     airQualityData['hourly']
                                             ['european_aqi_pm10'][0]
@@ -139,26 +125,67 @@ class AqiGaugeCardDetailed extends StatelessWidget {
                                   )),
                                 ),
                               ),
-                              const Text(
-                                "PM 10 (µg/m³)",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white70,
-                                ),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    getAqiStatus(double.parse(
+                                      airQualityData['hourly']
+                                              ['european_aqi_pm10'][0]
+                                          .toString(),
+                                    )),
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w500,
+                                      color: getAqiColor(double.parse(
+                                        airQualityData['hourly']
+                                                ['european_aqi_pm10'][0]
+                                            .toString(),
+                                      )),
+                                    ),
+                                  ),
+                                  const Text(
+                                    "PM 10 (µg/m³)",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                ],
                               ),
+                              const SizedBox(width: 10),
+                              // Label for AQI
+                              // const Text(
+                              //   "AQI (PM10)",
+                              //   style: TextStyle(
+                              //     fontSize: 16,
+                              //     color: Colors.white70,
+                              //   ),
+                              // ),
                             ],
                           ),
-                          const SizedBox(width: 10),
-                          // Label for AQI
-                          // const Text(
-                          //   "AQI (PM10)",
-                          //   style: TextStyle(
-                          //     fontSize: 16,
-                          //     color: Colors.white70,
-                          //   ),
-                          // ),
                         ],
                       ),
+                      const SizedBox(height: 150, child: AqiPm10InfoTile()),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const SizedBox(height: 150, child: AqiPm2InfoTile()),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const SizedBox(
+                          height: 150, child: SulphurDioxideInfoTile()),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const SizedBox(
+                          height: 150, child: NitrogenDioxideInfoTile()),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const LocationCard(),
                     ],
                   )
                 : Image.asset(

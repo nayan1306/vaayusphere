@@ -76,7 +76,7 @@ class _LocationCardState extends State<LocationCard> {
     final airQualityData = apiProvider.airQualityData;
 
     return SizedBox(
-      width: 400,
+      width: 300,
       height: 150,
       child: GlassCard(
         child: Column(
