@@ -103,36 +103,40 @@ class ExampleSidebarX extends StatelessWidget {
       items: [
         SidebarXItem(
           icon: Icons.dashboard,
-          label: 'dashboard',
+          label: 'D A S H B O A R D',
           onTap: () {
             debugPrint('Home');
           },
         ),
         const SidebarXItem(
           icon: Icons.cloud_queue, // Icon for weather
-          label: 'AQI',
+          label: 'A Q I',
         ),
         const SidebarXItem(
           icon: Icons.wb_sunny, // Icon for weather
-          label: 'Weather',
+          label: 'W E A T H E R',
+        ),
+        const SidebarXItem(
+          icon: Icons.thumb_up_alt_outlined, // Icon for Appraisal
+          label: 'A P P R A I S A L',
         ),
         const SidebarXItem(
           icon: Icons.how_to_vote, // Icon for Vote
-          label: 'Vote',
+          label: 'C O M P L A I N T S',
+        ),
+        const SidebarXItem(
+          icon: Icons.leaderboard_outlined, // Icon for Vote
+          label: 'L E A D E R B O A R D',
         ),
         SidebarXItem(
           icon: Icons.article, // Icon for News
-          label: 'News',
+          label: 'N E W S',
           selectable: false,
           onTap: () => _showDisabledAlert(context),
         ),
         const SidebarXItem(
           icon: Icons.trending_up_sharp, // Icon for Vote
-          label: 'Trends',
-        ),
-        const SidebarXItem(
-          icon: Icons.leaderboard_outlined, // Icon for Vote
-          label: 'Leaderboard',
+          label: 'T R E N D S',
         ),
       ],
     );
