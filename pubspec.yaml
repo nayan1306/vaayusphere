@@ -22,6 +22,7 @@ dependencies:
   loading_indicator: ^3.1.1
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
+  flutter_native_splash: ^2.4.4
   
 
 dev_dependencies:
@@ -35,3 +36,20 @@ flutter:
     - assets/logo/logo.png
     - assets/gifs/air.gif
     - assets/Icons/sun.png
+
+flutter_native_splash:
+ 
+  color: "#000000"
+  branding: assets/logo/logo.png
+  android_12:
+    # image: assets/android12splash.png
+
+    # Splash screen background color.
+    color: "#000000"
+
+    
+
+  
+  color_web: "#000000"
+  web_image_mode: center
+  

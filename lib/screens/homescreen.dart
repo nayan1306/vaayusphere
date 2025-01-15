@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/sidebar.dart';
+import 'package:vaayusphere/routes/screens_navigation.dart';
 import 'package:vaayusphere/screens/dashboard.dart';
+// import 'package:vaayusphere/routes/sidebar_navigation.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -26,6 +28,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+      // routes: appRoutes, // Add this line to include navigation routes
       home: Builder(
         builder: (context) {
           final isSmallScreen = MediaQuery.of(context).size.width < 600;
@@ -51,8 +54,11 @@ class HomeScreen extends StatelessWidget {
               children: [
                 if (!isSmallScreen) ExampleSidebarX(controller: _controller),
                 Expanded(
-                  child: Center(
-                      child: DashboardPlaceholder(controller: _controller)),
+                  child: ScreensExample(
+                    controller: _controller,
+                  ),
+                  //   child: Center(
+                  //       child: DashboardPlaceholder(controller: _controller)),
                 ),
               ],
             ),

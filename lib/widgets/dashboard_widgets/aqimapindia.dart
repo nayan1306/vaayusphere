@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart'; // Import flutter_map
 import 'package:latlong2/latlong.dart'; // Import latlong2 for handling LatLng
-import 'package:vaayusphere/widgets/glasscard.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart'; // Adjust import path
 
 class StaticAqiMapIndia extends StatelessWidget {
