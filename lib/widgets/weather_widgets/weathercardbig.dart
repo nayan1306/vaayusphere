@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:vaayusphere/widgets/weather_widgets/imageasperweathercode.dart';
 // import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart';
 import 'package:vaayusphere/widgets/weather_widgets/weatherforecastbig.dart';
 
@@ -40,37 +41,38 @@ class WeatherCardBig extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (weatherData['hourly']['is_day'][0] == 1)
-                                Image.network(
-                                  "https://raw.githubusercontent.com/nayan1306/assets/main/sun.png",
-                                  width: w * 0.12,
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    } else {
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          value: loadingProgress
-                                                      .expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  (loadingProgress
-                                                          .expectedTotalBytes ??
-                                                      1)
-                                              : null,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                )
-                              else
-                                Icon(
-                                  Icons.nightlight_round,
-                                  color: Colors.white70,
-                                  size: w * 0.12,
-                                ),
+                              // if (weatherData['hourly']['is_day'][0] == 1)
+                              //   Image.network(
+                              //     "https://raw.githubusercontent.com/nayan1306/assets/main/sun.png",
+                              //     width: w * 0.12,
+                              //     loadingBuilder:
+                              //         (context, child, loadingProgress) {
+                              //       if (loadingProgress == null) {
+                              //         return child;
+                              //       } else {
+                              //         return Center(
+                              //           child: CircularProgressIndicator(
+                              //             value: loadingProgress
+                              //                         .expectedTotalBytes !=
+                              //                     null
+                              //                 ? loadingProgress
+                              //                         .cumulativeBytesLoaded /
+                              //                     (loadingProgress
+                              //                             .expectedTotalBytes ??
+                              //                         1)
+                              //                 : null,
+                              //           ),
+                              //         );
+                              //       }
+                              //     },
+                              //   )
+                              // else
+                              //   Icon(
+                              //     Icons.nightlight_round,
+                              //     color: Colors.white70,
+                              //     size: w * 0.12,
+                              //   ),
+                              const ImageAsPerWeatherCode(),
                               SizedBox(width: w * 0.02),
                               Column(
                                 children: [
