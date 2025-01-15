@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/aqigaugecarddetailed.dart';
-import 'package:vaayusphere/widgets/aqi_widgets/locationcard.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/aqigaugecard.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/pm10linechart.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
+import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
 
 class AqiScreenPlaceholder extends StatefulWidget {
   const AqiScreenPlaceholder({
@@ -27,11 +28,16 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
     super.initState();
 
     // Fetch air quality data when the widget is initialized
-    Future.delayed(Duration.zero, () {
+    Future.delayed(const Duration(milliseconds: 4000), () async {
       // ignore: use_build_context_synchronously
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
-      // provider.fetchAndSetWeatherForecastData();
-      provider.fetchAndSetAirQualityData();
+      await provider.fetchAndSetAirQualityData();
+      await provider.fetchAndSetAirQualityDataDetailed();
+
+      // If no data is available, refetch
+      if (provider.airQualityData == null) {
+        await provider.fetchAndSetAirQualityData();
+      }
     });
 
     _scrollController.addListener(() {
@@ -156,12 +162,24 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
               itemCount:
                   1, // You can adjust this based on how many sections you need
               itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.all(25.0),
+                return Padding(
+                  padding: const EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AqiGaugeCardDetailed(),
+                      const AqiGaugeCardDetailed(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          const Pm10LineChart(),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.01,
+                          ),
+                          const No2LineChart()
+                        ],
+                      )
                     ],
                   ),
                 );

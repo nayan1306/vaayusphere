@@ -72,8 +72,7 @@ class _LocationCardState extends State<LocationCard> {
 
   @override
   Widget build(BuildContext context) {
-    final apiProvider = Provider.of<ApiDataProvider>(context);
-    final airQualityData = apiProvider.airQualityData;
+    Provider.of<ApiDataProvider>(context);
 
     return SizedBox(
       width: 300,

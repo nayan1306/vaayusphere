@@ -7,9 +7,11 @@ import 'package:vaayusphere/Api/fetchweather.dart';
 class ApiDataProvider with ChangeNotifier {
   // Air quality and weather data
   Map<String, dynamic>? _airQualityData;
+  Map<String, dynamic>? _airQualityDataDetailed;
   Map<String, dynamic>? _weatherForecastData;
 
   Map<String, dynamic>? get airQualityData => _airQualityData;
+  Map<String, dynamic>? get airQualityDataDetailed => _airQualityDataDetailed;
   Map<String, dynamic>? get weatherForecastData => _weatherForecastData;
 
   // Location data
@@ -56,6 +58,22 @@ class ApiDataProvider with ChangeNotifier {
         return;
       }
       _airQualityData = await fetchAirQualityData(
+        latitude: _currentLocation!.latitude,
+        longitude: _currentLocation!.longitude,
+      );
+      notifyListeners(); // Notify listeners when data changes
+    } catch (error) {
+      log("Error fetching air quality data: $error");
+    }
+  }
+
+  Future<void> fetchAndSetAirQualityDataDetailed() async {
+    try {
+      if (_currentLocation == null) {
+        log("Cannot fetch air quality data without location.");
+        return;
+      }
+      _airQualityDataDetailed = await fetchAirQualityDataDetailed(
         latitude: _currentLocation!.latitude,
         longitude: _currentLocation!.longitude,
       );
