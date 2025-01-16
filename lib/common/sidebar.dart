@@ -128,11 +128,11 @@ class ExampleSidebarX extends StatelessWidget {
           icon: Icons.leaderboard_outlined, // Icon for Vote
           label: 'L E A D E R B O A R D',
         ),
-        SidebarXItem(
+        const SidebarXItem(
           icon: Icons.article, // Icon for News
           label: 'N E W S',
-          selectable: false,
-          onTap: () => _showDisabledAlert(context),
+          // selectable: false,
+          // onTap: () => _showDisabledAlert(context),
         ),
         const SidebarXItem(
           icon: Icons.trending_up_sharp, // Icon for Vote
