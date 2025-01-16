@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/aqigaugecarddetailed.dart';
-import 'package:vaayusphere/widgets/aqi_widgets/pm10linechart.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/pm10barchart.dart';
 // import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
 
@@ -162,24 +162,16 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
               itemCount:
                   1, // You can adjust this based on how many sections you need
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(25.0),
+                return const Padding(
+                  padding: EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AqiGaugeCardDetailed(),
-                      const SizedBox(
+                      AqiGaugeCardDetailed(),
+                      SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          const Pm10LineChart(),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.01,
-                          ),
-                          const No2LineChart()
-                        ],
-                      )
+                      Pm10BarChart(),
                     ],
                   ),
                 );
