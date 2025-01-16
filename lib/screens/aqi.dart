@@ -4,6 +4,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/aqigaugecarddetailed.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/pm10barchart.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/pm25barchart.dart';
 // import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
 
@@ -171,7 +172,15 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
                       SizedBox(
                         height: 20,
                       ),
-                      Pm10BarChart(),
+                      Row(
+                        children: [
+                          Pm10BarChart(),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          Pm25BarChart()
+                        ],
+                      ),
                     ],
                   ),
                 );
