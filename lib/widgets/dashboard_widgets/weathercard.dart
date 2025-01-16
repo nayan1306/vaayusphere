@@ -4,6 +4,7 @@ import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/weatherforecastcard.dart';
+import 'package:vaayusphere/widgets/weather_widgets/imageasperweathercode.dart';
 
 class WeatherCard extends StatelessWidget {
   const WeatherCard({super.key});
@@ -37,37 +38,10 @@ class WeatherCard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (weatherData['hourly']['is_day'][0] == 1)
-                                Image.network(
-                                  "https://raw.githubusercontent.com/nayan1306/assets/main/sun.png",
+                              const SizedBox(
+                                  height: 100,
                                   width: 100,
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    } else {
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          value: loadingProgress
-                                                      .expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  (loadingProgress
-                                                          .expectedTotalBytes ??
-                                                      1)
-                                              : null,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                )
-                              else
-                                const Icon(
-                                  Icons.nightlight_round,
-                                  color: Colors.white70,
-                                  size: 100,
-                                ),
+                                  child: ImageAsPerWeatherCode()),
                               const SizedBox(width: 10),
                               Text(
                                 "${weatherData['hourly']['temperature_2m'][0]}°C", // Display the first temperature reading

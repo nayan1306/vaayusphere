@@ -10,7 +10,6 @@ import 'package:vaayusphere/widgets/aqi_widgets/pm10barchart.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/pm25barchart.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/so2barchart.dart';
 // import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
 
 class AqiScreenPlaceholder extends StatefulWidget {
   const AqiScreenPlaceholder({
