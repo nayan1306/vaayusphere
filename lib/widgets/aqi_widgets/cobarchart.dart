@@ -122,7 +122,7 @@ class CoBarChart extends StatelessWidget {
                           yValueMapper: (_AqiData data, _) => data.aqi,
                           name: 'CO μg/m³',
                           width: 0.6,
-                          color: const Color.fromARGB(255, 210, 249, 255),
+                          color: const Color.fromARGB(255, 106, 211, 178),
                           borderRadius: BorderRadius.circular(5),
                           enableTooltip: true,
                         ),

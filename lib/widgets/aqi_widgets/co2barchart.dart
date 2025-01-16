@@ -122,7 +122,7 @@ class Co2BarChart extends StatelessWidget {
                           yValueMapper: (_AqiData data, _) => data.aqi,
                           name: 'CO2 ppm',
                           width: 0.6,
-                          color: const Color.fromARGB(255, 210, 249, 255),
+                          color: const Color.fromARGB(255, 174, 255, 229),
                           borderRadius: BorderRadius.circular(5),
                           enableTooltip: true,
                         ),

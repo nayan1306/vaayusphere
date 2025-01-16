@@ -3,8 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/aqigaugecarddetailed.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/co2barchart.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/cobarchart.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/nitrogendioxide.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/pm10barchart.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/pm25barchart.dart';
+import 'package:vaayusphere/widgets/aqi_widgets/so2barchart.dart';
 // import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
 
@@ -179,6 +183,30 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
                             width: 25,
                           ),
                           Pm25BarChart()
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Co2BarChart(),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          CoBarChart()
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          No2BarChart(),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          So2BarChart()
                         ],
                       ),
                     ],

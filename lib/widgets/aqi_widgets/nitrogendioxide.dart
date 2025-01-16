@@ -122,7 +122,7 @@ class No2BarChart extends StatelessWidget {
                           yValueMapper: (_AqiData data, _) => data.aqi,
                           name: 'NO2 μg/m³',
                           width: 0.6,
-                          color: const Color.fromARGB(255, 210, 249, 255),
+                          color: const Color.fromARGB(255, 250, 255, 203),
                           borderRadius: BorderRadius.circular(5),
                           enableTooltip: true,
                         ),
