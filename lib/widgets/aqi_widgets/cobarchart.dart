@@ -4,8 +4,8 @@ import 'package:syncfusion_flutter_charts/charts.dart'; // Import Syncfusion cha
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart'; // Adjust import path
 
-class Pm10BarChart extends StatelessWidget {
-  const Pm10BarChart({super.key});
+class CoBarChart extends StatelessWidget {
+  const CoBarChart({super.key});
 
   @override
   Widget build(BuildContext context) {

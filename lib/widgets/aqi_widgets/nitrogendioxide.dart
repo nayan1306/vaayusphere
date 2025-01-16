@@ -4,8 +4,8 @@ import 'package:syncfusion_flutter_charts/charts.dart'; // Import Syncfusion cha
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart'; // Adjust import path
 
-class Co2BarChart extends StatelessWidget {
-  const Co2BarChart({super.key});
+class No2BarChart extends StatelessWidget {
+  const No2BarChart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class Co2BarChart extends StatelessWidget {
         airQualityData['hourly']['time'] != null &&
         airQualityData['hourly']['pm10'] != null) {
       final timeData = airQualityData['hourly']['time'] as List;
-      final hourlyData = airQualityData['hourly']['carbon_dioxide'] as List;
+      final hourlyData = airQualityData['hourly']['nitrogen_dioxide'] as List;
 
       // Create a map of AQI data by hour
       final Map<int, double> aqiMap = {};
@@ -71,7 +71,7 @@ class Co2BarChart extends StatelessWidget {
                       ),
                       plotAreaBorderWidth: 0.0,
                       title: const ChartTitle(
-                        text: 'CO2 ppm',
+                        text: 'NO2 μg/m³',
                         textStyle: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -105,7 +105,7 @@ class Co2BarChart extends StatelessWidget {
                       ),
                       primaryYAxis: const NumericAxis(
                         title: AxisTitle(
-                          text: 'CO2 ppm',
+                          text: 'NO2 μg/m³',
                           textStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class Co2BarChart extends StatelessWidget {
                           dataSource: chartData,
                           xValueMapper: (_AqiData data, _) => data.hour,
                           yValueMapper: (_AqiData data, _) => data.aqi,
-                          name: 'CO2 ppm',
+                          name: 'NO2 μg/m³',
                           width: 0.6,
                           color: const Color.fromARGB(255, 210, 249, 255),
                           borderRadius: BorderRadius.circular(5),
