@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:sidebarx/sidebarx.dart';
-import 'package:vaayusphere/widgets/news_widgets/infocuscard.dart';
-import 'package:vaayusphere/widgets/news_widgets/newslist.dart';
+import 'package:vaayusphere/widgets/appraisal_widgets/maplocationpicker.dart';
 
 class AppraisalScreenPlaceholder extends StatefulWidget {
   const AppraisalScreenPlaceholder({
@@ -160,7 +160,7 @@ class _AppraisalScreenPlaceholderState
                           // Use Row for wide layouts and Column for narrow layouts
                           return const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [],
+                            children: [MapLocationPicker()],
                           );
                         },
                       ),
