@@ -63,6 +63,9 @@ class NewsGlassCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: 6,
+                      ),
                       // Headline
                       Text(
                         headline,
@@ -70,20 +73,20 @@ class NewsGlassCard extends StatelessWidget {
                           fontSize:
                               18, // Reduced size to fit within constraints
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 173, 215, 255),
+                          color: Color.fromARGB(255, 255, 242, 242),
                           fontFamily: 'Montserrat',
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis, // Prevent overflow
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 8),
 
                       // Description
                       Text(
                         description,
                         style: const TextStyle(
                           fontSize: 14,
-                          color: Color.fromARGB(234, 255, 255, 255),
+                          color: Color.fromARGB(182, 214, 214, 214),
                         ),
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis, // Prevent overflow

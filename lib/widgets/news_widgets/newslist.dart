@@ -19,7 +19,7 @@ class NewsList extends StatelessWidget {
                   description:
                       'Flutter continues to revolutionize the mobile development world with its rich set of features and cross-platform capabilities,Flutter continues to revolutionize the mobile development world with its rich set of features and cross-platform capabilities,Flutter continues to revolutionize the mobile development world with its rich set of features and cross-platform capabilities',
                   imageUrl:
-                      'https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/city.jpg', // Dummy image URL
+                      'https://plus.unsplash.com/premium_photo-1707080369554-359143c6aa0b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG5ld3N8ZW58MHx8MHx8fDA%3D', // Dummy image URL
                 )),
       ),
     );
