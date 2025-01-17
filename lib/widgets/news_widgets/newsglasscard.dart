@@ -15,7 +15,12 @@ class NewsGlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width and height
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
+      // width: screenWidth * 0.8,
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(15.0),
@@ -48,30 +53,23 @@ class NewsGlassCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image.network(
                     imageUrl,
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    width: screenWidth * 0.15, // Responsive width
+                    height: screenHeight * 0.15, // Responsive height
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                  width: 20,
-                ),
+                const SizedBox(width: 16),
 
                 // Headline and Description wrapped in Expanded
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 6,
-                      ),
                       // Headline
                       Text(
                         headline,
                         style: const TextStyle(
-                          fontSize:
-                              18, // Reduced size to fit within constraints
+                          fontSize: 18, // Adjusted font size
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 255, 242, 242),
                           fontFamily: 'Montserrat',
@@ -88,7 +86,7 @@ class NewsGlassCard extends StatelessWidget {
                           fontSize: 14,
                           color: Color.fromARGB(182, 214, 214, 214),
                         ),
-                        maxLines: 4,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis, // Prevent overflow
                       ),
                     ],

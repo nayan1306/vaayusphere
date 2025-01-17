@@ -13,7 +13,7 @@ class NewsList extends StatelessWidget {
       child: AnimatedCardsCarousel(
         cardAspectRatio: 6,
         cardsList: List.generate(
-            100,
+            10,
             (index) => const NewsGlassCard(
                   headline: 'Breaking News: Flutter Rocks!',
                   description:

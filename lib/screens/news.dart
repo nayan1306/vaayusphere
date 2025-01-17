@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/widgets/news_widgets/infocuscard.dart';
 import 'package:vaayusphere/widgets/news_widgets/newslist.dart';
 
 class NewsScreenPlaceholder extends StatefulWidget {
@@ -141,14 +142,41 @@ class _NewsScreenPlaceholderState extends State<NewsScreenPlaceholder> {
               shrinkWrap:
                   true, // Allows the ListView to be used inside a CustomScrollView
               physics: const ScrollPhysics(),
-              itemCount:
-                  1, // You can adjust this based on how many sections you need
+              itemCount: 1, // Adjust this based on sections needed
               itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.all(25.0),
+                return Padding(
+                  padding: const EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [NewsList()],
+                    children: [
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isWide = constraints.maxWidth > 600;
+
+                          // Use Row for wide layouts and Column for narrow layouts
+                          return isWide
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Expanded(child: NewsList()),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.01,
+                                    ),
+                                    const Expanded(child: InfoFocusCard()),
+                                  ],
+                                )
+                              : const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    NewsList(),
+                                    SizedBox(height: 16),
+                                    InfoFocusCard(),
+                                  ],
+                                );
+                        },
+                      ),
+                    ],
                   ),
                 );
               },
