@@ -53,6 +53,29 @@ class ApiDataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> updateLocation(double latitude, double longitude) async {
+    _currentLocation = Position(
+      latitude: latitude,
+      longitude: longitude,
+      timestamp: DateTime.now(),
+      altitude: 0.0,
+      accuracy: 0.0,
+      heading: 0.0,
+      speed: 0.0,
+      speedAccuracy: 0.0,
+      altitudeAccuracy: 0.0,
+      headingAccuracy: 0.0,
+    );
+
+    // Fetch new data based on the updated location
+    await fetchAndSetAirQualityData();
+    await fetchAndSetAirQualityDataDetailed();
+    await fetchAndSetWeatherForecastData();
+    await fetchAndSetWeatherForecastDataDetailed();
+
+    notifyListeners(); // Notify listeners that the location has been updated
+  }
+
   Future<void> fetchAndSetAirQualityData() async {
     try {
       if (_currentLocation == null) {

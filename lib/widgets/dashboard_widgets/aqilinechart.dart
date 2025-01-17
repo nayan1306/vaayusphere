@@ -17,7 +17,7 @@ class AqiLineChart extends StatelessWidget {
     List<_AqiData> chartData = [];
     if (airQualityData != null) {
       final timeData = airQualityData['hourly']['time'] as List;
-      final hourlyData = airQualityData['hourly']['european_aqi_pm10'] as List;
+      final hourlyData = airQualityData['hourly']['us_aqi'] as List;
 
       chartData = List.generate(
         timeData.length,

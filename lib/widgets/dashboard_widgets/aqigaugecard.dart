@@ -82,8 +82,7 @@ class AqiGaugeCard extends StatelessWidget {
                           ),
                           Text(
                             getAqiEmoji(double.parse(
-                              airQualityData['hourly']['european_aqi_pm10'][0]
-                                  .toString(),
+                              airQualityData['hourly']['us_aqi'][0].toString(),
                             )),
                             style: const TextStyle(
                               fontSize: 50,
@@ -94,13 +93,12 @@ class AqiGaugeCard extends StatelessWidget {
                             width: 20,
                           ),
                           Text(
-                            airQualityData['hourly']['european_aqi_pm10'][0]
-                                .toString(),
+                            airQualityData['hourly']['us_aqi'][0].toString(),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.bold,
                               color: getAqiColor(double.parse(
-                                airQualityData['hourly']['european_aqi_pm10'][0]
+                                airQualityData['hourly']['us_aqi'][0]
                                     .toString(),
                               )),
                             ),
@@ -111,16 +109,14 @@ class AqiGaugeCard extends StatelessWidget {
                             children: [
                               Text(
                                 getAqiStatus(double.parse(
-                                  airQualityData['hourly']['european_aqi_pm10']
-                                          [0]
+                                  airQualityData['hourly']['us_aqi'][0]
                                       .toString(),
                                 )),
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w500,
                                   color: getAqiColor(double.parse(
-                                    airQualityData['hourly']
-                                            ['european_aqi_pm10'][0]
+                                    airQualityData['hourly']['us_aqi'][0]
                                         .toString(),
                                   )),
                                 ),
@@ -201,8 +197,7 @@ class AqiGaugeCard extends StatelessWidget {
                     pointers: [
                       Pointer(
                         value: double.parse(
-                          airQualityData['hourly']['european_aqi_pm10'][0]
-                              .toString(),
+                          airQualityData['hourly']['us_aqi'][0].toString(),
                         ),
                         shape: PointerShape.triangle,
                         color: const Color.fromARGB(255, 255, 166, 166),

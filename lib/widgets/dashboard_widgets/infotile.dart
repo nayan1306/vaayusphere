@@ -21,7 +21,7 @@ class InfoTile extends StatelessWidget {
           children: [
             airQualityData != null
                 ? Text(
-                    airQualityData['hourly']['european_aqi_pm10'][0].toString(),
+                    airQualityData['hourly']['us_aqi'][0].toString(),
                     style: const TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,

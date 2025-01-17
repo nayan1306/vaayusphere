@@ -6,7 +6,7 @@ Future<Map<String, dynamic>> fetchAirQualityData({
   required double longitude,
 }) async {
   final url =
-      'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$latitude&longitude=$longitude&hourly=pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,european_aqi_pm10&timezone=GMT&forecast_days=1';
+      'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$latitude&longitude=$longitude&hourly=pm10,pm2_5,nitrogen_dioxide,sulphur_dioxide,us_aqi&timezone=GMT&forecast_days=1';
 
   try {
     final response = await http.get(Uri.parse(url));
@@ -28,7 +28,7 @@ Future<Map<String, dynamic>> fetchAirQualityDataDetailed({
   required double longitude,
 }) async {
   final url =
-      'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$latitude&longitude=$longitude&hourly=pm10,pm2_5,carbon_monoxide,carbon_dioxide,nitrogen_dioxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky,ammonia,methane,european_aqi_pm2_5,european_aqi_pm10&timezone=auto&past_days=7';
+      'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$latitude&longitude=$longitude&hourly=pm10,pm2_5,carbon_monoxide,carbon_dioxide,nitrogen_dioxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky,ammonia,methane,european_aqi_pm2_5,us_aqi&timezone=auto&past_days=7';
 
   try {
     final response = await http.get(Uri.parse(url));
