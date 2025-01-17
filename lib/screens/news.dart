@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/widgets/news_widgets/newslist.dart';
 
 class NewsScreenPlaceholder extends StatefulWidget {
   const NewsScreenPlaceholder({
@@ -147,7 +148,7 @@ class _NewsScreenPlaceholderState extends State<NewsScreenPlaceholder> {
                   padding: EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [],
+                    children: [NewsList()],
                   ),
                 );
               },

@@ -28,6 +28,7 @@ dependencies:
   flutter_location_search: ^1.2.0
   location_picker_flutter_map: ^1.1.0
   intl: ^0.19.0
+  animated_cards_carousel: ^1.0.2
   
 
 dev_dependencies:
