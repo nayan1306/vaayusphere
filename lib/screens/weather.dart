@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/common/locationsearchbar.dart';
 // import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:flutter_location_search/flutter_location_search.dart';
@@ -119,16 +120,7 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
                             width: 20,
                           ),
                           // Use TextButton for location search
-                          TextButton(
-                            onPressed: _searchLocation,
-                            child: Text(
-                              _selectedLocation,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
+                          const Expanded(child: LocationSearchBar()),
                           IconButton(
                             icon: Icon(
                               Icons.notifications,
