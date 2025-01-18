@@ -37,7 +37,7 @@ class WeatherForecastCardBig extends StatelessWidget {
     );
 
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.49,
+      width: MediaQuery.of(context).size.width * 0.45,
       height: 250,
       child: Card(
         color: Colors.transparent,
