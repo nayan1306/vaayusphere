@@ -63,14 +63,23 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
             expandedHeight: 120.0, // Height of the flexible space
             pinned: true,
             backgroundColor: primaryColor,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                foregroundDecoration: BoxDecoration(
-                  color: const Color.fromARGB(184, 51, 32, 64).withOpacity(0.5),
-                ),
-                child: Image.network(
-                  "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/pmountbanner.png",
-                  fit: BoxFit.cover,
+            flexibleSpace: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+              child: FlexibleSpaceBar(
+                background: ClipRRect(
+                  child: Container(
+                    foregroundDecoration: BoxDecoration(
+                      color: const Color.fromARGB(184, 51, 32, 64)
+                          .withOpacity(0.5),
+                    ),
+                    child: Image.network(
+                      "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/pmountbanner.png",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
