@@ -73,7 +73,7 @@ class ExampleSidebarX extends StatelessWidget {
               height: extended ? 100 : 70,
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Image.asset('assets/logo/logo.png'),
+                child: Image.asset('./assets/logo/logond.png'),
               ),
             ),
             if (extended)

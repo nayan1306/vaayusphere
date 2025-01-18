@@ -43,6 +43,7 @@ flutter:
     - assets/logo/logo.png
     - assets/gifs/air.gif
     - assets/Icons/sun.png
+    - assets/logo/logond.png
 
 flutter_native_splash:
  
