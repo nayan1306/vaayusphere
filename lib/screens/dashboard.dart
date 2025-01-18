@@ -33,7 +33,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
     super.initState();
 
     // Fetch air quality data when the widget is initialized
-    Future.delayed(Duration.zero, () {
+    Future.delayed(const Duration(milliseconds: 2000), () {
       // ignore: use_build_context_synchronously
       final provider = Provider.of<ApiDataProvider>(context, listen: false);
       provider.fetchAndSetAirQualityData();
