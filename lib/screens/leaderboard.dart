@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/locationsearchbar.dart';
 
-class AppraisalScreenPlaceholder extends StatefulWidget {
-  const AppraisalScreenPlaceholder({
+class LeaderboardScreenPlaceholder extends StatefulWidget {
+  const LeaderboardScreenPlaceholder({
     super.key,
     required this.controller,
   });
@@ -11,12 +11,12 @@ class AppraisalScreenPlaceholder extends StatefulWidget {
   final SidebarXController controller;
 
   @override
-  State<AppraisalScreenPlaceholder> createState() =>
-      _AppraisalScreenPlaceholderState();
+  State<LeaderboardScreenPlaceholder> createState() =>
+      _LeaderboardScreenPlaceholderState();
 }
 
-class _AppraisalScreenPlaceholderState
-    extends State<AppraisalScreenPlaceholder> {
+class _LeaderboardScreenPlaceholderState
+    extends State<LeaderboardScreenPlaceholder> {
   final ScrollController _scrollController = ScrollController();
   double _sizedBoxHeight = 50.0;
 
@@ -57,11 +57,11 @@ class _AppraisalScreenPlaceholderState
               child: FlexibleSpaceBar(
                 background: Container(
                   foregroundDecoration: BoxDecoration(
-                    color: const Color.fromARGB(150, 114, 177, 124)
+                    color: const Color.fromARGB(218, 140, 100, 100)
                         .withOpacity(0.5),
                   ),
                   child: Image.network(
-                    "https://img.goodfon.com/original/1920x1080/0/64/listia-fon-background-leaves-still-life-kompozitsiia-dark-ba.jpg",
+                    "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/long_pollution.jpg",
                     fit: BoxFit.contain,
                     repeat: ImageRepeat.repeat,
                   ),

@@ -3,6 +3,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/screens/appraisal.dart';
 import 'package:vaayusphere/screens/aqi.dart';
 import 'package:vaayusphere/screens/dashboard.dart';
+import 'package:vaayusphere/screens/leaderboard.dart';
 import 'package:vaayusphere/screens/news.dart';
 import 'package:vaayusphere/screens/weather.dart';
 
@@ -32,6 +33,9 @@ class ScreensExample extends StatelessWidget {
           case 3:
             return Center(
                 child: AppraisalScreenPlaceholder(controller: controller));
+          case 5:
+            return Center(
+                child: LeaderboardScreenPlaceholder(controller: controller));
           case 6:
             return Center(child: NewsScreenPlaceholder(controller: controller));
           default:
