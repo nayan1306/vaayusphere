@@ -90,7 +90,7 @@ class _AppraisalScreenPlaceholderState
                             icon: Icon(
                               Icons.notifications,
                               size: 40,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withOpacity(0.7),
                             ),
                             onPressed: () {},
                           ),
@@ -98,7 +98,7 @@ class _AppraisalScreenPlaceholderState
                             icon: Icon(
                               Icons.settings,
                               size: 40,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withOpacity(0.7),
                             ),
                             onPressed: () {},
                           ),
@@ -106,7 +106,7 @@ class _AppraisalScreenPlaceholderState
                             icon: Icon(
                               Icons.account_circle,
                               size: 40,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withOpacity(0.7),
                             ),
                             onPressed: () {},
                           ),
