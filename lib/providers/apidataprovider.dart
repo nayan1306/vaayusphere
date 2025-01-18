@@ -17,6 +17,9 @@ class ApiDataProvider with ChangeNotifier {
   Map<String, dynamic>? get weatherForecastDataDetailed =>
       _weatherForecastDataDetailed;
 
+  String _selectedLocation = 'Tap here to search a place';
+  String get selectedLocation => _selectedLocation;
+
   // Location data
   Position? _currentLocation;
 
@@ -24,6 +27,12 @@ class ApiDataProvider with ChangeNotifier {
 
   ApiDataProvider() {
     _initializeLocation();
+  }
+
+  void updateSelectedLocation(double latitude, double longitude,
+      [String? address]) {
+    _selectedLocation = address ?? 'Lat: $latitude, Long: $longitude';
+    notifyListeners();
   }
 
   Future<void> _initializeLocation() async {

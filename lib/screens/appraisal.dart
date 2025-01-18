@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/common/locationsearchbar.dart';
 import 'package:vaayusphere/widgets/appraisal_widgets/maplocationpicker.dart';
 
 class AppraisalScreenPlaceholder extends StatefulWidget {
@@ -83,28 +83,8 @@ class _AppraisalScreenPlaceholderState
                           const SizedBox(
                             width: 20,
                           ),
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Search Location',
-                                hintStyle: TextStyle(
-                                  color: const Color.fromARGB(255, 0, 0, 0)
-                                      .withOpacity(0.5),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: const Color.fromARGB(255, 0, 0, 0)
-                                      .withOpacity(0.5),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor:
-                                    const Color.fromARGB(140, 200, 200, 200),
-                              ),
-                            ),
+                          const Expanded(
+                            child: LocationSearchBar(),
                           ),
                           IconButton(
                             icon: Icon(
