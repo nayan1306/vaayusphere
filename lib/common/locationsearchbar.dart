@@ -41,7 +41,7 @@ class LocationSearchBar extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(10), // Rounded borders applied here
           ),
-          margin: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(1),
           width: 100,
           height: 45,
           child: Row(
