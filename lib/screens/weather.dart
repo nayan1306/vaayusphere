@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/locationsearchbar.dart';
-// import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
-import 'package:flutter_location_search/flutter_location_search.dart';
 import 'package:vaayusphere/widgets/weather_widgets/apparenttemplinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/dewpointlinechart.dart';
 import 'package:vaayusphere/widgets/weather_widgets/precipitationforecastlinechart.dart';
@@ -32,8 +30,7 @@ class WeatherScreenPlaceHolder extends StatefulWidget {
 class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
   final ScrollController _scrollController = ScrollController();
   double _sizedBoxHeight = 50.0;
-  String _selectedLocation =
-      'Tap here to search a place'; // Default text for location
+// Default text for location
 
   @override
   void initState() {
@@ -57,22 +54,6 @@ class _DashboardPlaceholderState extends State<WeatherScreenPlaceHolder> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
-  }
-
-  Future<void> _searchLocation() async {
-    LocationData? locationData = await LocationSearch.show(
-      countryCodes: ['IN'],
-      context: context,
-      lightAddress: false,
-      mode: Mode.overlay,
-    );
-
-    if (locationData != null) {
-      setState(() {
-        _selectedLocation = locationData.address;
-      });
-      // You can handle the location data further, e.g., fetch weather data for the selected location.
-    }
   }
 
   @override

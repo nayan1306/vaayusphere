@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/common/locationsearchbar.dart';
 import 'package:vaayusphere/widgets/news_widgets/infocuscard.dart';
 import 'package:vaayusphere/widgets/news_widgets/newslist.dart';
 
@@ -81,27 +82,7 @@ class _NewsScreenPlaceholderState extends State<NewsScreenPlaceholder> {
                           const SizedBox(
                             width: 20,
                           ),
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Search Location',
-                                hintStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.5),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.white.withOpacity(0.5),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor:
-                                    const Color.fromARGB(61, 255, 255, 255),
-                              ),
-                            ),
-                          ),
+                          const Expanded(child: LocationSearchBar()),
                           IconButton(
                             icon: Icon(
                               Icons.notifications,
