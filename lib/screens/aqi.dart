@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:vaayusphere/common/locationsearchbar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/aqigaugecarddetailed.dart';
 import 'package:vaayusphere/widgets/aqi_widgets/co2barchart.dart';
@@ -102,32 +103,12 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
                           const SizedBox(
                             width: 20,
                           ),
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Search Location',
-                                hintStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.5),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.white.withOpacity(0.5),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor:
-                                    const Color.fromARGB(61, 255, 255, 255),
-                              ),
-                            ),
-                          ),
+                          const Expanded(child: LocationSearchBar()),
                           IconButton(
                             icon: Icon(
                               Icons.notifications,
                               size: 40,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withOpacity(0.7),
                             ),
                             onPressed: () {},
                           ),
@@ -135,7 +116,7 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
                             icon: Icon(
                               Icons.settings,
                               size: 40,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withOpacity(0.7),
                             ),
                             onPressed: () {},
                           ),
@@ -143,7 +124,7 @@ class _AqiScreenPlaceholderState extends State<AqiScreenPlaceholder> {
                             icon: Icon(
                               Icons.account_circle,
                               size: 40,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withOpacity(0.7),
                             ),
                             onPressed: () {},
                           ),
