@@ -1,44 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
-import 'package:vaayusphere/providers/apidataprovider.dart'; // Adjust import path
 
 class TopPolluters extends StatelessWidget {
   const TopPolluters({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Access the air quality data from the provider
-    final airQualityData = Provider.of<ApiDataProvider>(context).airQualityData;
-    // log("Air quality data: $airQualityData");
-
     return SizedBox(
-      width: 200,
-      height: 200,
+      width: MediaQuery.of(context).size.width * 0.83,
+      height: MediaQuery.of(context).size.height * 0.42,
       child: GlassCard(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            airQualityData != null
-                ? Text(
-                    airQualityData['hourly']['us_aqi'][0].toString(),
-                    style: const TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+            const Column(
+              children: [
+                Column(
+                  children: [
+                    GlassCard(
+                      child: Text(
+                        "Top Polluted Locations",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
                     ),
-                  )
-                : Image.asset(
-                    "./assets/gifs/air.gif",
-                    width: 150,
-                  ), // Show a loader while data is being fetched
-            const SizedBox(height: 10),
-            const Text(
-              "AQI (PM10)",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white70,
-              ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.26,
+                  height: MediaQuery.of(context).size.height * 0.29,
+                  child: const GlassCard(
+                      child: Column(
+                    children: [
+                      Text(
+                        "GLOBAL",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                          height:
+                              15), // Adds some spacing between the text and the list
+
+                      ListBody(
+                        children: [
+                          GlassCard(child: Text("data")),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GlassCard(child: Text("data")),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GlassCard(child: Text("data")),
+                        ],
+                      )
+                    ],
+                  )),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.01,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.26,
+                  height: MediaQuery.of(context).size.height * 0.29,
+                  child: const GlassCard(
+                      child: Text(
+                    "NATIONAL",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold),
+                  )),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.01,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.26,
+                  height: MediaQuery.of(context).size.height * 0.29,
+                  child: const GlassCard(
+                      child: Text(
+                    "CITY",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold),
+                  )),
+                ),
+              ],
             ),
           ],
         ),
