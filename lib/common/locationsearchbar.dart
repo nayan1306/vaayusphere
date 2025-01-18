@@ -35,46 +35,35 @@ class LocationSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ApiDataProvider>(
       builder: (context, provider, child) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(width: 20),
-            // Use TextButton for location search
-            TextButton(
-              onPressed: () => _openMapLocationPicker(context),
-              child: Text(
-                provider.selectedLocation,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white60,
+            borderRadius:
+                BorderRadius.circular(10), // Rounded borders applied here
+          ),
+          margin: const EdgeInsets.all(10),
+          width: 100,
+          height: 45,
+          child: Row(
+            children: [
+              const SizedBox(width: 20),
+              // Use TextButton for location search
+              const Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+              TextButton(
+                onPressed: () => _openMapLocationPicker(context),
+                child: Text(
+                  provider.selectedLocation,
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 36, 36, 36),
+                    fontSize: 16,
+                  ),
                 ),
               ),
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.notifications,
-                size: 40,
-                color: Colors.white.withOpacity(0.5),
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.settings,
-                size: 40,
-                color: Colors.white.withOpacity(0.5),
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.account_circle,
-                size: 40,
-                color: Colors.white.withOpacity(0.5),
-              ),
-              onPressed: () {},
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
