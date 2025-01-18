@@ -48,7 +48,7 @@ flutter:
 flutter_native_splash:
  
   color: "#000000"
-  branding: assets/logo/logo.png
+  image: assets/logo/logond.png
   android_12:
     # image: assets/android12splash.png
 
