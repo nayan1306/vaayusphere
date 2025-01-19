@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/locationsearchbar.dart';
+import 'package:vaayusphere/widgets/appraisal_widgets/mapaqi.dart';
 import 'package:vaayusphere/widgets/leaderboard_widgets/toppolluters.dart';
 
 class LeaderboardScreenPlaceholder extends StatefulWidget {
@@ -140,7 +141,7 @@ class _LeaderboardScreenPlaceholderState
                           // Use Row for wide layouts and Column for narrow layouts
                           return const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [TopPolluters()],
+                            children: [TopPolluters(), MapAqi()],
                           );
                         },
                       ),

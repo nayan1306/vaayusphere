@@ -6,7 +6,7 @@ import 'package:vaayusphere/routes/screens_navigation.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final _controller = SidebarXController(selectedIndex: 5, extended: true);
+  final _controller = SidebarXController(selectedIndex: 0, extended: true);
   final _key = GlobalKey<ScaffoldState>();
 
   @override

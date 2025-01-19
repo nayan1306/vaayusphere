@@ -38,32 +38,30 @@ class TopPolluters extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.26,
                   height: MediaQuery.of(context).size.height * 0.29,
-                  child: const GlassCard(
+                  child: GlassCard(
                       child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "GLOBAL",
                         style: TextStyle(
                           color: Colors.white70,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                           height:
                               15), // Adds some spacing between the text and the list
 
                       ListBody(
-                        children: [
-                          GlassCard(child: Text("data")),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          GlassCard(child: Text("data")),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          GlassCard(child: Text("data")),
-                        ],
+                        children: List.generate(3, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 10.0), // Adds spacing between items
+                            child: GlassCard(
+                              child: Text("data ${index + 1}"),
+                            ),
+                          );
+                        }),
                       )
                     ],
                   )),
@@ -74,11 +72,32 @@ class TopPolluters extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.26,
                   height: MediaQuery.of(context).size.height * 0.29,
-                  child: const GlassCard(
-                      child: Text(
-                    "NATIONAL",
-                    style: TextStyle(
-                        color: Colors.white70, fontWeight: FontWeight.bold),
+                  child: GlassCard(
+                      child: Column(
+                    children: [
+                      const Text(
+                        "NATIONAL",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                          height:
+                              15), // Adds some spacing between the text and the list
+
+                      ListBody(
+                        children: List.generate(3, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 10.0), // Adds spacing between items
+                            child: GlassCard(
+                              child: Text("data ${index + 1}"),
+                            ),
+                          );
+                        }),
+                      )
+                    ],
                   )),
                 ),
                 SizedBox(
@@ -87,11 +106,32 @@ class TopPolluters extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.26,
                   height: MediaQuery.of(context).size.height * 0.29,
-                  child: const GlassCard(
-                      child: Text(
-                    "CITY",
-                    style: TextStyle(
-                        color: Colors.white70, fontWeight: FontWeight.bold),
+                  child: GlassCard(
+                      child: Column(
+                    children: [
+                      const Text(
+                        "CITY",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                          height:
+                              15), // Adds some spacing between the text and the list
+
+                      ListBody(
+                        children: List.generate(3, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 10.0), // Adds spacing between items
+                            child: GlassCard(
+                              child: Text("data ${index + 1}"),
+                            ),
+                          );
+                        }),
+                      )
+                    ],
                   )),
                 ),
               ],
