@@ -4,6 +4,7 @@ import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/locationsearchbar.dart';
 import 'package:vaayusphere/common/sidebar.dart';
 import 'package:vaayusphere/providers/apidataprovider.dart';
+import 'package:vaayusphere/widgets/appraisal_widgets/mapaqi.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/aqigaugecard.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/aqimapindia.dart';
@@ -179,8 +180,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                               So2LineChart()
                             ],
                           ),
-                          SizedBox(width: 20),
-                          StaticAqiMapIndia()
+                          MapAqi()
                         ],
                       ),
                       Row(
