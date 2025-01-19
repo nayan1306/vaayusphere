@@ -7,7 +7,6 @@ import 'package:vaayusphere/providers/apidataprovider.dart';
 import 'package:vaayusphere/widgets/appraisal_widgets/mapaqi.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/aqigaugecard.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/aqilinechart.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/aqimapindia.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/infotile.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/no2linechart.dart';
 import 'package:vaayusphere/widgets/dashboard_widgets/so2linechart.dart';
@@ -174,7 +173,7 @@ class _DashboardPlaceholderState extends State<DashboardPlaceholder> {
                         children: [
                           Column(
                             children: [
-                              SizedBox(height: 20),
+                              SizedBox(height: 5),
                               No2LineChart(),
                               SizedBox(height: 20),
                               So2LineChart()

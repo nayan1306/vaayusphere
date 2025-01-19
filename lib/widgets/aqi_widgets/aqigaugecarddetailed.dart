@@ -21,7 +21,7 @@ class AqiGaugeCardDetailed extends StatelessWidget {
       } else if (aqiValue <= 100) {
         return "Moderate";
       } else if (aqiValue <= 150) {
-        return "Unhealthy for Sensitive Groups";
+        return "Sensitive Risk";
       } else if (aqiValue <= 200) {
         return "Unhealthy";
       } else if (aqiValue <= 300) {
