@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "74981491286",
+    "project_id": "vaayusphere-cd3d0",
+    "storage_bucket": "vaayusphere-cd3d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74981491286:android:fb942a7217532bc0eff1f7",
+        "android_client_info": {
+          "package_name": "com.example.vaayusphere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx_9HQVrRS7gJpobgkr0gy0_BBo1LHv_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
