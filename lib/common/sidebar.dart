@@ -142,17 +142,17 @@ class ExampleSidebarX extends StatelessWidget {
     );
   }
 
-  void _showDisabledAlert(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'Item disabled for selecting',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-      ),
-    );
-  }
+  // void _showDisabledAlert(BuildContext context) {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     const SnackBar(
+  //       content: Text(
+  //         'Item disabled for selecting',
+  //         style: TextStyle(color: Colors.black),
+  //       ),
+  //       backgroundColor: Colors.white,
+  //     ),
+  //   );
+  // }
 }
 
 const primaryColor = Color.fromARGB(255, 32, 31, 51);

@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:vaayusphere/Api/fetchaqi.dart';
-import 'package:vaayusphere/Api/fetchweather.dart';
+import 'package:vaayusphere/api/fetchaqi.dart';
+import 'package:vaayusphere/api/fetchweather.dart';
 
 class ApiDataProvider with ChangeNotifier {
   // Air quality and weather data

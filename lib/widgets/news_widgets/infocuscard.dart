@@ -1,119 +1,165 @@
 import 'package:flutter/material.dart';
-import 'package:vaayusphere/widgets/dashboard_widgets/glasscard.dart';
-import 'package:animated_list_item/animated_list_item.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vaayusphere/api/news_api_service.dart';
 
-class InfoFocusCard extends StatefulWidget {
-  const InfoFocusCard({super.key});
+class InfoFocusCard extends StatelessWidget {
+  final Article? featuredArticle;
 
-  @override
-  _InfoFocusCardState createState() => _InfoFocusCardState();
-}
-
-class _InfoFocusCardState extends State<InfoFocusCard>
-    with TickerProviderStateMixin {
-  late AnimationController animationController;
-  List list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(
-      duration: const Duration(milliseconds: 6000),
-      vsync: this,
-    );
-    animationController.forward();
-  }
-
-  ClipRRect item(int index) {
-    return ClipRRect(
-      borderRadius:
-          BorderRadius.circular(10), // Rounded corners for the container
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(151, 197, 199, 198),
-          borderRadius: BorderRadius.circular(10), // Same radius as ClipRRect
-        ),
-        margin: const EdgeInsets.all(8),
-        padding:
-            const EdgeInsets.all(16), // Adjusted padding for better spacing
-        alignment: Alignment.center,
-        child: const Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Align items to the start
-          mainAxisSize: MainAxisSize.min, // Minimize the height of the column
-          children: [
-            // Headline Text
-            Text(
-              "Focus News !!",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 45, 42, 42),
-              ),
-            ),
-            SizedBox(height: 8), // Spacing between headline and description
-
-            // Description Text
-            Text(
-              "Random text about the news which is going to come in here, this is going to be a super cool headline",
-              style: TextStyle(
-                fontSize: 16,
-                color: Color.fromARGB(179, 0, 0, 0),
-              ),
-              maxLines: 2, // Limit the number of lines
-              overflow: TextOverflow.ellipsis, // Add ellipsis for overflow
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  const InfoFocusCard({
+    super.key,
+    this.featuredArticle,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
-    return SizedBox(
-      width: width * 0.3,
-      height: height * 0.8,
-      child: GlassCard(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Text(
-              "IN FOCUS",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 20,
-                  letterSpacing: 10),
-            ),
-            const Divider(),
-            SizedBox(
-              height: height * 0.71,
-              child: ListView.builder(
-                itemCount: list.length,
-                itemBuilder: (context, index) {
-                  return AnimatedListItem(
-                    index: index,
-                    length: 20,
-                    aniController: animationController,
-                    animationType: AnimationType.zoom,
-                    child: item(index),
-                  );
-                },
-              ),
-            )
-          ],
+    if (featuredArticle == null) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(12),
         ),
-      ),
-    );
-  }
+        child: const Center(
+          child: Text('No featured article available'),
+        ),
+      );
+    }
 
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
+    // Format the date
+    final DateTime publishDate = DateTime.parse(featuredArticle!.publishedAt);
+    final String formattedDate = DateFormat('MMM dd, yyyy').format(publishDate);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Text(
+            'Featured Story',
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: () async {
+              if (featuredArticle!.url.isNotEmpty) {
+                final Uri url = Uri.parse(featuredArticle!.url);
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url);
+                }
+              }
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (featuredArticle!.urlToImage != null)
+                  Container(
+                    height: 250,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(featuredArticle!.urlToImage!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.7),
+                          ],
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        featuredArticle!.source.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        featuredArticle!.title,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        formattedDate,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              color: Colors.grey[600],
+                            ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        featuredArticle!.description,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        featuredArticle!.content,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        maxLines: 6,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 20),
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        onPressed: () async {
+                          if (featuredArticle!.url.isNotEmpty) {
+                            final Uri url = Uri.parse(featuredArticle!.url);
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            }
+                          }
+                        },
+                        child: const Text('Read Full Article'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
