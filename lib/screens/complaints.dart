@@ -3,6 +3,11 @@ import 'package:sidebarx/sidebarx.dart';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:path/path.dart' as path;
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
 
 class ComplaintsScreenPlaceholder extends StatefulWidget {
   const ComplaintsScreenPlaceholder({
@@ -27,6 +32,15 @@ class _ComplaintsScreenPlaceholderState
   final CollectionReference _complaintsCollection =
       FirebaseFirestore.instance.collection('complaints');
 
+  // Cloudinary instance
+  late final CloudinaryPublic _cloudinary;
+
+  // Image picker
+  final ImagePicker _imagePicker = ImagePicker();
+
+  // Selected image
+  File? _selectedImage;
+
   // Loading state
   bool _isLoading = false;
 
@@ -36,6 +50,17 @@ class _ComplaintsScreenPlaceholderState
     _scrollController.addListener(() {
       setState(() {});
     });
+
+    // Initialize Cloudinary - replace with your own cloud name and upload preset
+    _cloudinary =
+        CloudinaryPublic('your-cloud-name', 'your-upload-preset', cache: false);
+
+    // If using environment variables:
+    // _cloudinary = CloudinaryPublic(
+    //   dotenv.env['CLOUDINARY_CLOUD_NAME'] ?? '',
+    //   dotenv.env['CLOUDINARY_UPLOAD_PRESET'] ?? '',
+    //   cache: false
+    // );
   }
 
   @override
@@ -44,6 +69,70 @@ class _ComplaintsScreenPlaceholderState
     _subjectController.dispose();
     _descriptionController.dispose();
     super.dispose();
+  }
+
+  // Pick image from gallery
+  Future<void> _pickImage() async {
+    final XFile? pickedFile = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+// Reset uploaded URL when new image selected
+      });
+    }
+  }
+
+  // Pick image from camera
+  Future<void> _takePhoto() async {
+    final XFile? pickedFile = await _imagePicker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 80,
+    );
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+// Reset uploaded URL when new image selected
+      });
+    }
+  }
+
+  // Upload image to Cloudinary
+  Future<String?> _uploadImage() async {
+    if (_selectedImage == null) return null;
+
+    try {
+      // Create a unique filename
+      final String fileName =
+          'complaint_img_${DateTime.now().millisecondsSinceEpoch}${path.extension(_selectedImage!.path)}';
+
+      // Upload to Cloudinary
+      final CloudinaryResponse response = await _cloudinary.uploadFile(
+        CloudinaryFile.fromFile(
+          _selectedImage!.path,
+          folder: 'complaints',
+          resourceType: CloudinaryResourceType.Image,
+          publicId: fileName,
+        ),
+      );
+
+      // Return the secure URL
+      return response.secureUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
+  }
+
+  // Remove selected image
+  void _removeImage() {
+    setState(() {
+      _selectedImage = null;
+    });
   }
 
   // Submit a new complaint to Firestore
@@ -64,6 +153,12 @@ class _ComplaintsScreenPlaceholderState
     });
 
     try {
+      // Upload image if selected
+      String? imageUrl;
+      if (_selectedImage != null) {
+        imageUrl = await _uploadImage();
+      }
+
       // Generate a timestamp for the current date
       final now = DateTime.now();
       final formattedDate = DateFormat('yyyy-MM-dd').format(now);
@@ -74,6 +169,7 @@ class _ComplaintsScreenPlaceholderState
         'description': _descriptionController.text,
         'date': formattedDate,
         'status': 'Pending',
+        'imageUrl': imageUrl, // Add the image URL if available
         'timestamp': FieldValue.serverTimestamp(), // For sorting
       });
 
@@ -87,6 +183,9 @@ class _ComplaintsScreenPlaceholderState
       // Clear the form
       _subjectController.clear();
       _descriptionController.clear();
+      setState(() {
+        _selectedImage = null;
+      });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -156,6 +255,9 @@ class _ComplaintsScreenPlaceholderState
                         hintText: 'Description',
                         maxLines: 5,
                       ),
+                      const SizedBox(height: 16),
+                      // Image attachment section
+                      _buildImageAttachmentSection(),
                       const SizedBox(height: 16),
                       Align(
                         alignment: Alignment.centerRight,
@@ -245,6 +347,7 @@ class _ComplaintsScreenPlaceholderState
                                 data['description'] ?? 'No Description',
                             date: data['date'] ?? 'Unknown Date',
                             status: data['status'] ?? 'Pending',
+                            imageUrl: data['imageUrl'],
                           );
 
                           return _buildComplaintCard(complaint);
@@ -256,6 +359,118 @@ class _ComplaintsScreenPlaceholderState
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  // Build image attachment section
+  Widget _buildImageAttachmentSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Attachment',
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.8),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        if (_selectedImage != null)
+          Stack(
+            children: [
+              Container(
+                height: 120,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.file(
+                    _selectedImage!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: GestureDetector(
+                  onTap: _removeImage,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        else
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _buildAttachmentButton(
+                icon: Icons.photo_library,
+                label: 'Gallery',
+                onTap: _pickImage,
+              ),
+              const SizedBox(width: 12),
+              _buildAttachmentButton(
+                icon: Icons.camera_alt,
+                label: 'Camera',
+                onTap: _takePhoto,
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+
+  // Build attachment button for camera and gallery
+  Widget _buildAttachmentButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: Colors.white.withOpacity(0.2),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Colors.white.withOpacity(0.8),
+              size: 18,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.8),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -416,6 +631,50 @@ class _ComplaintsScreenPlaceholderState
                   ),
                 ),
                 const SizedBox(height: 8),
+                // Display image if available
+                if (complaint.imageUrl != null &&
+                    complaint.imageUrl!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: GestureDetector(
+                      onTap: () =>
+                          _showImageFullScreen(context, complaint.imageUrl!),
+                      child: Container(
+                        height: 120,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: CachedNetworkImage(
+                            imageUrl: complaint.imageUrl!,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Container(
+                              color: Colors.black.withOpacity(0.1),
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                              color: Colors.black.withOpacity(0.1),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.error_outline,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -450,6 +709,65 @@ class _ComplaintsScreenPlaceholderState
           ),
         ),
       ),
+    );
+  }
+
+  // Show full screen image preview
+  void _showImageFullScreen(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.zero,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Image with zoom capability
+              InteractiveViewer(
+                minScale: 0.5,
+                maxScale: 4.0,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.contain,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Center(
+                    child: Icon(
+                      Icons.error_outline,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+                ),
+              ),
+              // Close button
+              Positioned(
+                top: 40,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -527,6 +845,7 @@ class ComplaintModel {
   final String description;
   final String date;
   final String status;
+  final String? imageUrl;
 
   ComplaintModel({
     required this.id,
@@ -534,5 +853,6 @@ class ComplaintModel {
     required this.description,
     required this.date,
     required this.status,
+    this.imageUrl,
   });
 }

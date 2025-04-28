@@ -32,6 +32,11 @@ dependencies:
   animated_list_item: ^1.0.0
   firebase_core: ^3.13.0
   cloud_firestore: ^5.6.6
+  image_picker: ^1.1.2
+  firebase_storage: ^12.4.5
+  cached_network_image: ^3.4.1
+  cloudinary_public: ^0.23.1
+  flutter_dotenv: ^5.2.1
   
 
 dev_dependencies:
@@ -46,6 +51,7 @@ flutter:
     - assets/gifs/air.gif
     - assets/Icons/sun.png
     - assets/logo/logond.png
+    - .env
 
 flutter_native_splash:
  
