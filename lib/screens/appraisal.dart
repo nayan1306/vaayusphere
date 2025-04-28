@@ -56,9 +56,9 @@ class _AppraisalScreenPlaceholderState
   void initState() {
     super.initState();
 
-    _scrollController.addListener(() {
-      setState(() {});
-    });
+    // _scrollController.addListener(() {
+    //   setState(() {});
+    // });
 
     // Initialize Cloudinary with your credentials
     _cloudinary = CloudinaryPublic('dtmmi1uae', 'appraisals', cache: false);
