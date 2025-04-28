@@ -8,6 +8,8 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, Uint8List;
+import 'dart:typed_data';
 
 class ComplaintsScreenPlaceholder extends StatefulWidget {
   const ComplaintsScreenPlaceholder({
@@ -38,8 +40,11 @@ class _ComplaintsScreenPlaceholderState
   // Image picker
   final ImagePicker _imagePicker = ImagePicker();
 
-  // Selected image
-  File? _selectedImage;
+  // Selected image - different types for web vs mobile
+  File? _selectedImageFile;
+  Uint8List? _selectedImageBytes;
+  XFile? _selectedImageXFile;
+  bool get hasSelectedImage => _selectedImageXFile != null;
 
   // Loading state
   bool _isLoading = false;
@@ -51,16 +56,8 @@ class _ComplaintsScreenPlaceholderState
       setState(() {});
     });
 
-    // Initialize Cloudinary - replace with your own cloud name and upload preset
-    _cloudinary =
-        CloudinaryPublic('your-cloud-name', 'your-upload-preset', cache: false);
-
-    // If using environment variables:
-    // _cloudinary = CloudinaryPublic(
-    //   dotenv.env['CLOUDINARY_CLOUD_NAME'] ?? '',
-    //   dotenv.env['CLOUDINARY_UPLOAD_PRESET'] ?? '',
-    //   cache: false
-    // );
+    // Initialize Cloudinary with your credentials
+    _cloudinary = CloudinaryPublic('dtmmi1uae', 'complaints', cache: false);
   }
 
   @override
@@ -80,8 +77,18 @@ class _ComplaintsScreenPlaceholderState
 
     if (pickedFile != null) {
       setState(() {
-        _selectedImage = File(pickedFile.path);
-// Reset uploaded URL when new image selected
+        _selectedImageXFile = pickedFile;
+
+        if (!kIsWeb) {
+          _selectedImageFile = File(pickedFile.path);
+        } else {
+          // For web, read as bytes
+          pickedFile.readAsBytes().then((bytes) {
+            setState(() {
+              _selectedImageBytes = bytes;
+            });
+          });
+        }
       });
     }
   }
@@ -95,30 +102,56 @@ class _ComplaintsScreenPlaceholderState
 
     if (pickedFile != null) {
       setState(() {
-        _selectedImage = File(pickedFile.path);
-// Reset uploaded URL when new image selected
+        _selectedImageXFile = pickedFile;
+
+        if (!kIsWeb) {
+          _selectedImageFile = File(pickedFile.path);
+        } else {
+          // For web, read as bytes
+          pickedFile.readAsBytes().then((bytes) {
+            setState(() {
+              _selectedImageBytes = bytes;
+            });
+          });
+        }
       });
     }
   }
 
   // Upload image to Cloudinary
   Future<String?> _uploadImage() async {
-    if (_selectedImage == null) return null;
+    if (_selectedImageXFile == null) return null;
 
     try {
       // Create a unique filename
       final String fileName =
-          'complaint_img_${DateTime.now().millisecondsSinceEpoch}${path.extension(_selectedImage!.path)}';
+          'complaint_img_${DateTime.now().millisecondsSinceEpoch}${path.extension(_selectedImageXFile!.name)}';
 
-      // Upload to Cloudinary
-      final CloudinaryResponse response = await _cloudinary.uploadFile(
-        CloudinaryFile.fromFile(
-          _selectedImage!.path,
-          folder: 'complaints',
-          resourceType: CloudinaryResourceType.Image,
-          publicId: fileName,
-        ),
-      );
+      CloudinaryResponse response;
+
+      if (kIsWeb) {
+        // Web upload using bytes
+        _selectedImageBytes ??= await _selectedImageXFile!.readAsBytes();
+
+        response = await _cloudinary.uploadFile(
+          CloudinaryFile.fromBytesData(
+            _selectedImageBytes!,
+            folder: 'complaints',
+            resourceType: CloudinaryResourceType.Image,
+            identifier: fileName,
+          ),
+        );
+      } else {
+        // Mobile upload using file
+        response = await _cloudinary.uploadFile(
+          CloudinaryFile.fromFile(
+            _selectedImageFile!.path,
+            folder: 'complaints',
+            resourceType: CloudinaryResourceType.Image,
+            identifier: fileName,
+          ),
+        );
+      }
 
       // Return the secure URL
       return response.secureUrl;
@@ -131,7 +164,9 @@ class _ComplaintsScreenPlaceholderState
   // Remove selected image
   void _removeImage() {
     setState(() {
-      _selectedImage = null;
+      _selectedImageXFile = null;
+      _selectedImageFile = null;
+      _selectedImageBytes = null;
     });
   }
 
@@ -155,7 +190,7 @@ class _ComplaintsScreenPlaceholderState
     try {
       // Upload image if selected
       String? imageUrl;
-      if (_selectedImage != null) {
+      if (_selectedImageXFile != null) {
         imageUrl = await _uploadImage();
       }
 
@@ -184,7 +219,9 @@ class _ComplaintsScreenPlaceholderState
       _subjectController.clear();
       _descriptionController.clear();
       setState(() {
-        _selectedImage = null;
+        _selectedImageXFile = null;
+        _selectedImageFile = null;
+        _selectedImageBytes = null;
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -215,150 +252,166 @@ class _ComplaintsScreenPlaceholderState
             ],
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Complaints',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 24),
-              // New Complaint Form
-              _buildGlassmorphicContainer(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Submit New Complaint',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+        // Use CustomScrollView instead of SingleChildScrollView with Expanded child
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            // App Bar Content
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Complaints',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
-                      const SizedBox(height: 16),
-                      _buildGlassTextField(
-                        controller: _subjectController,
-                        hintText: 'Subject',
-                      ),
-                      const SizedBox(height: 16),
-                      _buildGlassTextField(
-                        controller: _descriptionController,
-                        hintText: 'Description',
-                        maxLines: 5,
-                      ),
-                      const SizedBox(height: 16),
-                      // Image attachment section
-                      _buildImageAttachmentSection(),
-                      const SizedBox(height: 16),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: ElevatedButton(
-                          onPressed: _isLoading ? null : _submitComplaint,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Colors.purpleAccent.withOpacity(0.3),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 12),
-                          ),
-                          child: _isLoading
-                              ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 2,
-                                  ))
-                              : const Text(
-                                  'Submit',
-                                  style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 24),
+                    // New Complaint Form
+                    _buildGlassmorphicContainer(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Submit New Complaint',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            _buildGlassTextField(
+                              controller: _subjectController,
+                              hintText: 'Subject',
+                            ),
+                            const SizedBox(height: 16),
+                            _buildGlassTextField(
+                              controller: _descriptionController,
+                              hintText: 'Description',
+                              maxLines: 5,
+                            ),
+                            const SizedBox(height: 16),
+                            // Image attachment section
+                            _buildImageAttachmentSection(),
+                            const SizedBox(height: 16),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: ElevatedButton(
+                                onPressed: _isLoading ? null : _submitComplaint,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Colors.purpleAccent.withOpacity(0.3),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 12),
                                 ),
+                                child: _isLoading
+                                    ? const SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 2,
+                                        ))
+                                    : const Text(
+                                        'Submit',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 24),
+                    const Text(
+                      'Previous Complaints',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                 ),
               ),
-              const SizedBox(height: 24),
-              const Text(
-                'Previous Complaints',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Previous Complaints List from Firestore
-              Expanded(
-                child: _buildGlassmorphicContainer(
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: _complaintsCollection
-                        .orderBy('timestamp', descending: true)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        );
-                      }
-
-                      if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            'Error loading complaints: ${snapshot.error}',
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        );
-                      }
-
-                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                        return const Center(
-                          child: Text(
-                            'No complaints found',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        );
-                      }
-
-                      return ListView.builder(
-                        controller: _scrollController,
-                        padding: const EdgeInsets.all(8),
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          final doc = snapshot.data!.docs[index];
-                          final data = doc.data() as Map<String, dynamic>;
-
-                          // Create complaint model from Firestore document
-                          final complaint = ComplaintModel(
-                            id: doc.id,
-                            subject: data['subject'] ?? 'No Subject',
-                            description:
-                                data['description'] ?? 'No Description',
-                            date: data['date'] ?? 'Unknown Date',
-                            status: data['status'] ?? 'Pending',
-                            imageUrl: data['imageUrl'],
+            ),
+            // Previous Complaints List - now in a SliverFillRemaining
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 24.0),
+              sliver: SliverToBoxAdapter(
+                child: SizedBox(
+                  // Set a fixed height for the list container instead of using Expanded
+                  height: 2500, // Adjust as needed
+                  child: _buildGlassmorphicContainer(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: _complaintsCollection
+                          .orderBy('timestamp', descending: true)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
                           );
+                        }
 
-                          return _buildComplaintCard(complaint);
-                        },
-                      );
-                    },
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                              'Error loading complaints: ${snapshot.error}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }
+
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'No complaints found',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
+                        }
+
+                        return ListView.builder(
+                          padding: const EdgeInsets.all(8),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            final doc = snapshot.data!.docs[index];
+                            final data = doc.data() as Map<String, dynamic>;
+
+                            // Create complaint model from Firestore document
+                            final complaint = ComplaintModel(
+                              id: doc.id,
+                              subject: data['subject'] ?? 'No Subject',
+                              description:
+                                  data['description'] ?? 'No Description',
+                              date: data['date'] ?? 'Unknown Date',
+                              status: data['status'] ?? 'Pending',
+                              imageUrl: data['imageUrl'],
+                            );
+
+                            return _buildComplaintCard(complaint);
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -377,11 +430,14 @@ class _ComplaintsScreenPlaceholderState
           ),
         ),
         const SizedBox(height: 8),
-        if (_selectedImage != null)
+        if (hasSelectedImage)
           Stack(
             children: [
               Container(
-                height: 120,
+                constraints: const BoxConstraints(
+                  minHeight: 120,
+                  maxHeight: 400, // Set a reasonable maximum height
+                ),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
@@ -391,10 +447,7 @@ class _ComplaintsScreenPlaceholderState
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.file(
-                    _selectedImage!,
-                    fit: BoxFit.cover,
-                  ),
+                  child: _buildSelectedImagePreview(),
                 ),
               ),
               Positioned(
@@ -436,6 +489,58 @@ class _ComplaintsScreenPlaceholderState
             ],
           ),
       ],
+    );
+  }
+
+  // Build image preview based on platform
+  Widget _buildSelectedImagePreview() {
+    if (!hasSelectedImage) return Container();
+
+    if (kIsWeb) {
+      // For web, always use the XFile and read as bytes
+      return FutureBuilder<Uint8List>(
+        future: _selectedImageXFile!.readAsBytes(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Colors.white.withOpacity(0.8),
+              ),
+            );
+          }
+          if (snapshot.hasData) {
+            return Center(
+              child: Image.memory(
+                snapshot.data!,
+                fit: BoxFit.contain,
+              ),
+            );
+          }
+          return Center(
+            child: Icon(
+              Icons.image_not_supported,
+              color: Colors.white.withOpacity(0.8),
+            ),
+          );
+        },
+      );
+    } else {
+      // For mobile, use file image
+      if (_selectedImageFile != null) {
+        return Center(
+          child: Image.file(
+            _selectedImageFile!,
+            fit: BoxFit.contain,
+          ),
+        );
+      }
+    }
+
+    return Center(
+      child: Icon(
+        Icons.image_not_supported,
+        color: Colors.white.withOpacity(0.8),
+      ),
     );
   }
 
@@ -640,7 +745,7 @@ class _ComplaintsScreenPlaceholderState
                       onTap: () =>
                           _showImageFullScreen(context, complaint.imageUrl!),
                       child: Container(
-                        height: 120,
+                        height: 620,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
@@ -720,51 +825,59 @@ class _ComplaintsScreenPlaceholderState
         return Dialog(
           backgroundColor: Colors.transparent,
           insetPadding: EdgeInsets.zero,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Image with zoom capability
-              InteractiveViewer(
-                minScale: 0.5,
-                maxScale: 4.0,
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.contain,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => const Center(
-                    child: Icon(
-                      Icons.error_outline,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                  ),
-                ),
-              ),
-              // Close button
-              Positioned(
-                top: 40,
-                right: 20,
-                child: GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                      size: 24,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Image with zoom capability
+                InteractiveViewer(
+                  minScale: 0.5,
+                  maxScale: 4.0,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    height: MediaQuery.of(context).size.height * 0.95,
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      fit: BoxFit.contain,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => const Center(
+                        child: Icon(
+                          Icons.error_outline,
+                          color: Colors.white,
+                          size: 50,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                // Close button
+                Positioned(
+                  top: 40,
+                  right: 20,
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.7),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
