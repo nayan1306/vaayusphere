@@ -6,13 +6,13 @@ import 'package:vaayusphere/routes/screens_navigation.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final _controller = SidebarXController(selectedIndex: 7, extended: true);
+  final _controller = SidebarXController(selectedIndex: 0, extended: true);
   final _key = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'VΛΛYU sphere',
+      title: 'YΛΛYU sphere',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: primaryColor,

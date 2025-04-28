@@ -81,7 +81,7 @@ class ExampleSidebarX extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "VΛΛYU",
+                    "YΛΛYU",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

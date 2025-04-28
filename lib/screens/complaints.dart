@@ -53,7 +53,7 @@ class _ComplaintsScreenPlaceholderState
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      setState(() {});
+      // setState(() {});
     });
 
     // Initialize Cloudinary with your credentials
@@ -697,9 +697,9 @@ class _ComplaintsScreenPlaceholderState
                       child: Text(
                         complaint.subject,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 26,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 255, 200, 174),
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
