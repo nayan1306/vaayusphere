@@ -135,24 +135,12 @@ class ExampleSidebarX extends StatelessWidget {
           // onTap: () => _showDisabledAlert(context),
         ),
         const SidebarXItem(
-          icon: Icons.trending_up_sharp, // Icon for Vote
-          label: 'T R E N D S',
+          icon: Icons.park_outlined, // Icon for Plantation
+          label: 'P L A N T A T I O N',
         ),
       ],
     );
   }
-
-  // void _showDisabledAlert(BuildContext context) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     const SnackBar(
-  //       content: Text(
-  //         'Item disabled for selecting',
-  //         style: TextStyle(color: Colors.black),
-  //       ),
-  //       backgroundColor: Colors.white,
-  //     ),
-  //   );
-  // }
 }
 
 const primaryColor = Color.fromARGB(255, 32, 31, 51);

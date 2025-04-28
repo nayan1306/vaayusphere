@@ -6,6 +6,7 @@ import 'package:vaayusphere/screens/complaints.dart';
 import 'package:vaayusphere/screens/dashboard.dart';
 import 'package:vaayusphere/screens/leaderboard.dart';
 import 'package:vaayusphere/screens/news.dart';
+import 'package:vaayusphere/screens/plantation.dart';
 import 'package:vaayusphere/screens/weather.dart';
 
 class ScreensExample extends StatelessWidget {
@@ -42,6 +43,9 @@ class ScreensExample extends StatelessWidget {
                 child: LeaderboardScreenPlaceholder(controller: controller));
           case 6:
             return Center(child: NewsScreenPlaceholder(controller: controller));
+          case 7:
+            return Center(
+                child: PlantationScreenPlaceholder(controller: controller));
           default:
             return Text(
               pageTitle,
