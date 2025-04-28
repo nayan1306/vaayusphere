@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:vaayusphere/common/locationsearchbar.dart';
-import 'package:vaayusphere/widgets/appraisal_widgets/mapaqi.dart';
 import 'package:vaayusphere/widgets/leaderboard_widgets/toppolluters.dart';
+import 'package:vaayusphere/widgets/leaderboard_widgets/global_countries_list.dart';
 
 class LeaderboardScreenPlaceholder extends StatefulWidget {
   const LeaderboardScreenPlaceholder({
@@ -18,13 +18,16 @@ class LeaderboardScreenPlaceholder extends StatefulWidget {
 }
 
 class _LeaderboardScreenPlaceholderState
-    extends State<LeaderboardScreenPlaceholder> {
+    extends State<LeaderboardScreenPlaceholder>
+    with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   double _sizedBoxHeight = 50.0;
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
 
     _scrollController.addListener(() {
       setState(() {
@@ -36,19 +39,18 @@ class _LeaderboardScreenPlaceholderState
   @override
   void dispose() {
     _scrollController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Theme.of(context);
-
     return Scaffold(
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
           SliverAppBar(
-            expandedHeight: 120.0, // Height of the flexible space
+            expandedHeight: 120.0,
             pinned: true,
             backgroundColor: const Color.fromARGB(0, 32, 31, 51),
             flexibleSpace: ClipRRect(
@@ -63,9 +65,18 @@ class _LeaderboardScreenPlaceholderState
                         .withOpacity(0.5),
                   ),
                   child: Image.network(
-                    "https://raw.githubusercontent.com/nayan1306/assets/refs/heads/main/long_pollution.jpg",
+                    "https://raw.githubusercontent.com/nayan1306/assets/main/long_pollution.jpg",
                     fit: BoxFit.contain,
                     repeat: ImageRepeat.repeat,
+                    errorBuilder: (context, error, stackTrace) {
+                      // Display a placeholder if image fails to load
+                      return Container(
+                        color: Colors.grey[300],
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported, size: 50),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -81,12 +92,8 @@ class _LeaderboardScreenPlaceholderState
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          const Expanded(
-                            child: LocationSearchBar(),
-                          ),
+                          const SizedBox(width: 20),
+                          const Expanded(child: LocationSearchBar()),
                           IconButton(
                             icon: Icon(
                               Icons.notifications,
@@ -113,9 +120,7 @@ class _LeaderboardScreenPlaceholderState
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: _sizedBoxHeight,
-                      )
+                      SizedBox(height: _sizedBoxHeight),
                     ],
                   ),
                 ),
@@ -123,32 +128,61 @@ class _LeaderboardScreenPlaceholderState
             ),
           ),
           SliverToBoxAdapter(
-            child: ListView.builder(
-              shrinkWrap:
-                  true, // Allows the ListView to be used inside a CustomScrollView
-              physics: const ScrollPhysics(),
-              itemCount: 1, // Adjust this based on sections needed
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      LayoutBuilder(
-                        builder: (context, constraints) {
-                          // final isWide = constraints.maxWidth > 600;
-
-                          // Use Row for wide layouts and Column for narrow layouts
-                          return const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [TopPolluters(), MapAqi()],
-                          );
-                        },
-                      ),
-                    ],
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Air Pollution Leaderboard',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // White title for glassy look
+                    ),
                   ),
-                );
-              },
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Global air quality rankings and statistics',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+                  // Tab Controller for sections
+                  TabBar(
+                    controller: _tabController,
+                    tabs: const [
+                      Tab(text: 'Most Polluted Cities'),
+                      Tab(text: 'Countries Ranking'),
+                    ],
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.grey,
+                    indicatorColor: Colors.lightGreenAccent,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // This is the key difference - use SliverFillRemaining with a TabBarView
+          SliverFillRemaining(
+            hasScrollBody: true,
+            child: TabBarView(
+              controller: _tabController,
+              children: const [
+                // Wrap in SingleChildScrollView to prevent overflow
+                SingleChildScrollView(
+                  padding: EdgeInsets.all(16.0),
+                  child: TopPolluters(),
+                ),
+                // Wrap in SingleChildScrollView to prevent overflow
+                SingleChildScrollView(
+                  padding: EdgeInsets.all(16.0),
+                  child: GlobalCountriesList(),
+                ),
+              ],
             ),
           ),
         ],
