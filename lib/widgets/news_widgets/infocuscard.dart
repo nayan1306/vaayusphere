@@ -111,13 +111,14 @@ class InfoFocusCard extends StatelessWidget {
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                       ),
                       const SizedBox(height: 12),
                       Text(
                         formattedDate,
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: Colors.grey[600],
+                              color: const Color.fromARGB(255, 0, 0, 0),
                             ),
                       ),
                       const SizedBox(height: 16),
