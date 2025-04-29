@@ -29,7 +29,7 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-
+# /build/
 
 # Symbolication related
 app.*.symbols
@@ -41,3 +41,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+
+# Don't track .env files with sensitive information
+.env
+.env.local
+.env.development
+.env.test
+.env.production

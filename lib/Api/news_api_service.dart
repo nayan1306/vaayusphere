@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Combined service and data models for pollution news.
 class PollutionNewsService {
   static const _baseHost = 'newsapi.org';
   static const _basePath = '/v2/everything';
-  static const _apiKey = 'e3512586c27b41f3bc34ce245f2a7293';
+
+  // Get API key from environment variables
+  static String get _apiKey => dotenv.env['NEWS_API_KEY'] ?? '';
 
   /// Fallback query for general pollution news.
   static const _baseQuery =
