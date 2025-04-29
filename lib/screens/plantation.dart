@@ -694,20 +694,6 @@ class _PlantationScreenPlaceholderState
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Header
-              // _buildBlurredContainer(
-              //   padding: const EdgeInsets.all(16),
-              //   child: Column(
-              //     children: [
-              //       const Text('Upcoming Plantation Drives',
-              //           style: TextStyle(
-              //               fontSize: 18, fontWeight: FontWeight.bold)),
-              //       const SizedBox(height: 8),
-              //       Text('Join a plantation drive near you or create your own',
-              //           style: TextStyle(color: Colors.black.withOpacity(0.7))),
-              //     ],
-              //   ),
-              // ),
               const SizedBox(height: 16),
 
               // Drives list
@@ -751,15 +737,6 @@ class _PlantationScreenPlaceholderState
                                   const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Row(
                                 children: [
-                                  // const Icon(Icons.location_on,
-                                  //     size: 16, color: Colors.green),
-                                  // const SizedBox(width: 4),
-                                  // Expanded(
-                                  //   child: Text(drive.address,
-                                  //       style: TextStyle(
-                                  //           color:
-                                  //               Colors.black.withOpacity(0.7))),
-                                  // ),
                                   Text(
                                       '${drive.distance.toStringAsFixed(1)} km away',
                                       style: TextStyle(
