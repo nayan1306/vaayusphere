@@ -1,12 +1,17 @@
 <p align="center">
-  <img src="ra/logo.png" alt="VaayuSphere Logo" width="100" style="vertical-align: middle;"/>
-  <span style="font-size:2.5rem; font-weight:bold; margin-left: 10px; position: relative; top: 10px;">YaayuSphere</span>
+  <h1>YaayuSphere</h1>
 </p>
 
-> “Breathe easy, dream big, and join us in transforming air quality monitoring into a mission of global impact!”  
+> “Breathe easy, dream big, and join us in transforming air quality monitoring into a mission of global impact!”
 
 <p align="center">
-  <iframe width="1196" height="529" src="https://www.youtube.com/embed/LukRczQpt4o" title="YaayuSphere – Redefining Air Awareness for a Smarter Planet" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <a href="https://www.youtube.com/watch?v=LukRczQpt4o" target="_blank">
+    <img src="https://img.youtube.com/vi/LukRczQpt4o/hqdefault.jpg" alt="Watch YaayuSphere on YouTube" width="296" height="199" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>▶️ Click to watch: <em>YaayuSphere – on YouTube
 </p>
 
 
